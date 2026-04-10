@@ -1196,7 +1196,13 @@ useEffect(() => {
 );
 };
 
-const Services = ({ services = [] }: { services?: any[] }) => (
+const Services = ({
+  services = [],
+  membershipPlans = [],
+}: {
+  services?: any[];
+  membershipPlans?: any[];
+}) => (
   <div className="bg-background">
     <ServicesHero />
     <ServicesTreatmentGrid services={services} />
@@ -1458,7 +1464,15 @@ const [membershipPlans, setMembershipPlans] = useState<any[]>([]);
   element={<Home membershipPlans={membershipPlans} />}
 />
           <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services services={services} />} />
+          <Route
+  path="/services"
+  element={
+    <Services
+      services={services}
+      membershipPlans={membershipPlans}
+    />
+  }
+/>
           <Route path="/vlogs" element={<Vlogs />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
