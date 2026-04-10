@@ -11,8 +11,10 @@ export default function MembershipPrefetch() {
         const res = await apiGet("getMembershipPlans");
 
         if (res?.success) {
-          setPlans(res.data || []);
+          console.log("Membership prefetched:", res);
+          setPlans(res?.data || []);
         }
+        
       } catch (error) {
         console.error("❌ Membership fetch failed:", error);
       }
@@ -20,6 +22,7 @@ export default function MembershipPrefetch() {
 
     loadMembershipPlans();
   }, []);
-
+  console.log("membership plans state:", plans);
   return <MembershipPlans plans={plans} />;
+
 }
