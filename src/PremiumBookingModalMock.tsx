@@ -113,7 +113,10 @@ setIsCustomerLoading(true);
             {(!bookingType || bookingType === "membership") && (
               <motion.div
                 layout
-                onClick={() => setBookingType("membership")}
+                onClick={() => {
+  setBookingType("membership");
+  setSelectedOption("");
+}}
                 className="cursor-pointer rounded-3xl border border-primary/20 bg-white/5 p-8 hover:border-primary transition-all duration-500"
               >
                 <p className="text-primary uppercase tracking-[0.3em] text-xs mb-4">
@@ -180,13 +183,20 @@ setIsCustomerLoading(true);
   >
     <option value="">Select an option</option>
     {(bookingType === "membership"
-      ? membershipOptions
-      : serviceOptions
-    ).map((item) => (
-      <option key={item.id || item.no} value={item.name || item.title}>
-        {item.name || item.title}
-      </option>
-    ))}
+  ? membershipOptions
+  : serviceOptions
+).map((item, index) => {
+  const label =
+    bookingType === "membership"
+      ? item?.name
+      : item?.title;
+
+  return (
+    <option key={item.id || item.no || index} value={label}>
+      {label}
+    </option>
+  );
+})}
   </select>
 
             </div>
