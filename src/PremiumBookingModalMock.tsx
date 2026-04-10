@@ -37,12 +37,28 @@ export default function PremiumBookingModalMock({
               </h2>
             </div>
 
-            <button
-              onClick={onClose}
-              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <motion.button
+  onClick={onClose}
+  whileHover={{ scale: 1.08, rotate: 90 }}
+  whileTap={{ scale: 0.95 }}
+  className="group relative flex h-14 w-14 items-center justify-center rounded-full
+             border border-primary/25
+             bg-gradient-to-br from-white/[0.06] to-white/[0.02]
+             backdrop-blur-xl
+             shadow-[0_0_30px_rgba(212,175,55,0.08)]
+             transition-all duration-500
+             hover:border-primary/60
+             hover:shadow-[0_0_40px_rgba(212,175,55,0.18)]"
+>
+  {/* outer luxury glow ring */}
+  <div className="absolute inset-0 rounded-full ring-1 ring-white/5 group-hover:ring-primary/40 transition-all duration-500" />
+
+  {/* subtle inner glass highlight */}
+  <div className="absolute inset-[2px] rounded-full bg-gradient-to-b from-white/[0.06] to-transparent" />
+
+  <X className="relative z-10 h-5 w-5 text-white/90 group-hover:text-primary transition-colors duration-500" />
+</motion.button>
+            
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
