@@ -14,6 +14,7 @@ import HomeLibraryPrefetch from "./HomeLibraryPrefetch";
 import ServicesPrefetch from "./ServicesPrefetch";
 import PremiumBookingModalMock from "./PremiumBookingModalMock";
 import MembershipPrefetch from "./MembershipPrefetch";
+import MembershipPlans from "./MembershipPlans";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
