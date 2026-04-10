@@ -1256,10 +1256,10 @@ useEffect(() => {
 );
 };
 
-const Services = () => (
+const Services = ({ services = [] }: { services?: any[] }) => (
   <div className="bg-background">
     <ServicesHero />
-    <ServicesTreatmentGrid />
+    <ServicesTreatmentGrid services={services} />
     <ExclusiveRituals />
   </div>
 );
@@ -1500,14 +1500,18 @@ const Home = () => (
 );
 
 export default function App() {
+  const [services, setServices] = useState<any[]>([]);
+
   return (
     <Router>
+      <ServicesPrefetch onLoaded={setServices} />
+
       <div className="min-h-screen">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
+          <Route path="/services" element={<Services services={services} />} />
           <Route path="/vlogs" element={<Vlogs />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
