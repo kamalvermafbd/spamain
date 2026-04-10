@@ -27,6 +27,7 @@ export default function PremiumBookingModalMock({
           exit={{ scale: 0.96, opacity: 0 }}
           className="w-full max-w-5xl rounded-3xl border border-primary/20 bg-[#111] p-8 md:p-10 shadow-2xl"
         >
+          {/* Header */}
           <div className="flex items-center justify-between mb-10">
             <div>
               <p className="text-primary text-[10px] uppercase tracking-[0.4em] font-bold">
@@ -38,61 +39,82 @@ export default function PremiumBookingModalMock({
             </div>
 
             <motion.button
-  onClick={onClose}
-  whileHover={{ scale: 1.08, rotate: 90 }}
-  whileTap={{ scale: 0.95 }}
-  className="group relative flex h-14 w-14 items-center justify-center rounded-full
-             border border-primary/25
-             bg-gradient-to-br from-white/[0.06] to-white/[0.02]
-             backdrop-blur-xl
-             shadow-[0_0_30px_rgba(212,175,55,0.08)]
-             transition-all duration-500
-             hover:border-primary/60
-             hover:shadow-[0_0_40px_rgba(212,175,55,0.18)]"
->
-  {/* outer luxury glow ring */}
-  <div className="absolute inset-0 rounded-full ring-1 ring-white/5 group-hover:ring-primary/40 transition-all duration-500" />
-
-  {/* subtle inner glass highlight */}
-  <div className="absolute inset-[2px] rounded-full bg-gradient-to-b from-white/[0.06] to-transparent" />
-
-  <X className="relative z-10 h-5 w-5 text-white/90 group-hover:text-primary transition-colors duration-500" />
-</motion.button>
-            
+              onClick={onClose}
+              whileHover={{ scale: 1.08, rotate: 90 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative flex h-14 w-14 items-center justify-center rounded-full
+                         border border-primary/25
+                         bg-gradient-to-br from-white/[0.06] to-white/[0.02]
+                         backdrop-blur-xl
+                         shadow-[0_0_30px_rgba(212,175,55,0.08)]
+                         transition-all duration-500
+                         hover:border-primary/60
+                         hover:shadow-[0_0_40px_rgba(212,175,55,0.18)]"
+            >
+              <div className="absolute inset-0 rounded-full ring-1 ring-white/5 group-hover:ring-primary/40 transition-all duration-500" />
+              <div className="absolute inset-[2px] rounded-full bg-gradient-to-b from-white/[0.06] to-transparent" />
+              <X className="relative z-10 h-5 w-5 text-white/90 group-hover:text-primary transition-colors duration-500" />
+            </motion.button>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <div
-              onClick={() => setBookingType("membership")}
-              className="cursor-pointer rounded-3xl border border-primary/20 bg-white/5 p-8 hover:border-primary transition-all duration-500"
-            >
-              <p className="text-primary uppercase tracking-[0.3em] text-xs mb-4">
-                Membership
-              </p>
-              <h3 className="font-headline text-3xl text-white mb-4">
-                Premium Wellness Plans
-              </h3>
-              <p className="text-white/70 leading-relaxed">
-                Essential Wellness, Premium Escape, Zenith Luxury.
-              </p>
-            </div>
+          {/* Booking Cards */}
+          <div
+            className={`grid gap-6 ${
+              bookingType
+                ? "grid-cols-1 md:grid-cols-2"
+                : "md:grid-cols-2"
+            }`}
+          >
+            {(!bookingType || bookingType === "membership") && (
+              <motion.div
+                layout
+                onClick={() => setBookingType("membership")}
+                className="cursor-pointer rounded-3xl border border-primary/20 bg-white/5 p-8 hover:border-primary transition-all duration-500"
+              >
+                <p className="text-primary uppercase tracking-[0.3em] text-xs mb-4">
+                  Membership
+                </p>
+                <h3 className="font-headline text-3xl text-white mb-4">
+                  Premium Wellness Plans
+                </h3>
+                <p className="text-white/70 leading-relaxed">
+                  Essential Wellness, Premium Escape, Zenith Luxury.
+                </p>
+              </motion.div>
+            )}
 
-            <div
-              onClick={() => setBookingType("service")}
-              className="cursor-pointer rounded-3xl border border-white/10 bg-white/5 p-8 hover:border-primary transition-all duration-500"
-            >
-              <p className="text-primary uppercase tracking-[0.3em] text-xs mb-4">
-                Single Ritual
-              </p>
-              <h3 className="font-headline text-3xl text-white mb-4">
-                Book Individual Service
-              </h3>
-              <p className="text-white/70 leading-relaxed">
-                Choose any massage, facial, body polish, or custom ritual.
-              </p>
-            </div>
+            {(!bookingType || bookingType === "service") && (
+              <motion.div
+                layout
+                onClick={() => setBookingType("service")}
+                className="cursor-pointer rounded-3xl border border-white/10 bg-white/5 p-8 hover:border-primary transition-all duration-500"
+              >
+                <p className="text-primary uppercase tracking-[0.3em] text-xs mb-4">
+                  Single Ritual
+                </p>
+                <h3 className="font-headline text-3xl text-white mb-4">
+                  Book Individual Service
+                </h3>
+                <p className="text-white/70 leading-relaxed">
+                  Choose any massage, facial, body polish, or custom ritual.
+                </p>
+              </motion.div>
+            )}
           </div>
 
+          {/* Change Option */}
+          {bookingType && (
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={() => setBookingType(null)}
+                className="text-primary text-sm tracking-[0.2em] uppercase hover:text-white transition"
+              >
+                Change Option
+              </button>
+            </div>
+          )}
+
+          {/* Selected Summary */}
           {bookingType && (
             <div className="mt-10 rounded-2xl border border-primary/20 bg-primary/5 p-6 text-center">
               <p className="text-primary uppercase tracking-[0.3em] text-xs mb-2">
