@@ -46,7 +46,7 @@ const [customerEmail, setCustomerEmail] = useState("");
           initial={{ scale: 0.96, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.96, opacity: 0 }}
-          className="w-full max-w-5xl rounded-3xl border border-primary/20 bg-[#111] p-8 md:p-10 shadow-2xl"
+          className="w-full max-w-5xl max-h-[90vh] overflow-y-auto premium-scrollbar rounded-3xl border border-primary/20 bg-[#111] p-8 md:p-10 shadow-2xl"
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-10">
