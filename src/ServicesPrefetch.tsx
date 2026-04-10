@@ -1,37 +1,30 @@
 import { useEffect } from "react";
 import { apiGet } from "./lib/api";
 
-const ServicesPrefetch = () => {
+export default function ServicesPrefetch({
+  onLoaded,
+}: {
+  onLoaded?: (data: any[]) => void;
+}) {
   useEffect(() => {
-    const loadServices = async () => {
-      try {
-        const cached = localStorage.getItem("spaServices");
-
-        if (cached) {
-          console.log("📦 Services already prefetched");
-          return;
-        }
-
-        console.log("🚀 Prefetching services...");
-        const res = await apiGet("getServices");
-
-        if (res?.success) {
-          localStorage.setItem(
-            "spaServices",
-            JSON.stringify(res.data || [])
-          );
-
-          console.log("✅ Services prefetched:", res.data?.length);
-        }
-      } catch (error) {
-        console.error("❌ Services prefetch failed:", error);
-      }
-    };
-
-    loadServices();
+    prefetchServices();
   }, []);
 
-  return null;
-};
+  async function prefetchServices() {
+    try {
+      const res = await apiGet("getServices");
 
-export default ServicesPrefetch;
+      if (res?.success) {
+        console.log("🛎 Services prefetched:", res.data);
+
+        if (typeof onLoaded === "function") {
+          onLoaded(res.data);
+        }
+      }
+    } catch (error) {
+      console.error("❌ Services prefetch failed:", error);
+    }
+  }
+
+  return null;
+}
