@@ -36,7 +36,6 @@ const [customerEmail, setCustomerEmail] = useState("");
     <AnimatePresence>
       <motion.div
         className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-xl flex items-center justify-center p-6"
-        onClick={onClose}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
