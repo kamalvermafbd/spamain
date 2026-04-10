@@ -183,7 +183,7 @@ setIsCustomerLoading(true);
                   : "Single Service Booking Selected"}
               </h4>
 {isOptionsLoading ? (
-  <div className="mt-8 rounded-3xl border-2 border-primary/60 bg-gradient-to-br from-primary/10 to-black/40 px-8 py-8 text-center shadow-[0_0_30px_rgba(212,175,55,0.12)]">
+  <div className="mt-8 rounded-3xl border-2 border-primary/60 bg-gradient-to-br from-primary/10 to-black/40 px-8 py-8 text-center shadow-[0_0_30px_rgba(212,175,55,0.12)] animate-pulse">
   <p className="text-primary text-xs uppercase tracking-[0.4em] mb-3 font-semibold">
     Preparing Your Experience
   </p>
