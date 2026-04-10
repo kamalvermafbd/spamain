@@ -558,7 +558,11 @@ useEffect(() => {
   </section>
 );
 };
-const ExclusiveRituals = () => (
+const ExclusiveRituals = ({
+  plans = [],
+}: {
+  plans?: any[];
+}) => (
   <section className="bg-surface-container-lowest py-32 px-6 md:px-12 relative overflow-hidden">
     <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent"></div>
     <div className="max-w-screen-2xl mx-auto relative z-10">
@@ -569,7 +573,7 @@ const ExclusiveRituals = () => (
         <p className="text-on-surface-variant font-body max-w-2xl mx-auto">Elevate your wellness journey with curated memberships designed for consistent restoration and cinematic luxury.</p>
       </div>
      
-<MembershipPrefetch />
+<MembershipPlans plans={plans} />
      
     </div>
   </section>
@@ -1196,7 +1200,7 @@ const Services = ({ services = [] }: { services?: any[] }) => (
   <div className="bg-background">
     <ServicesHero />
     <ServicesTreatmentGrid services={services} />
-    <ExclusiveRituals />
+    <ExclusiveRituals plans={membershipPlans} />
   </div>
 );
 
@@ -1424,7 +1428,11 @@ const About = () => (
   </div>
 );
 
-const Home = () => (
+const Home = ({
+  membershipPlans = [],
+}: {
+  membershipPlans?: any[];
+}) => (
   <>
     <HomeLibraryPrefetch />
 
@@ -1445,7 +1453,10 @@ const [membershipPlans, setMembershipPlans] = useState<any[]>([]);
       <div className="min-h-screen">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+  path="/"
+  element={<Home membershipPlans={membershipPlans} />}
+/>
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services services={services} />} />
           <Route path="/vlogs" element={<Vlogs />} />
