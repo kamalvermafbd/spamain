@@ -18,7 +18,9 @@ const [isCustomerLoading, setIsCustomerLoading] = useState(false);
 const [selectedOption, setSelectedOption] = useState("");
 const [serviceOptions, setServiceOptions] = useState<any[]>([]);
 const [membershipOptions, setMembershipOptions] = useState<any[]>([]);
+const [isOptionsLoading, setIsOptionsLoading] = useState(false);
 
+  
   useEffect(() => {
   const loadDropdowns = async () => {
     const [servicesRes, membershipRes] = await Promise.all([
@@ -33,6 +35,7 @@ const [membershipOptions, setMembershipOptions] = useState<any[]>([]);
     if (membershipRes?.success) {
       setMembershipOptions(membershipRes.data || []);
     }
+    setIsOptionsLoading(false);
   };
 
  loadDropdowns();
@@ -115,6 +118,7 @@ setIsCustomerLoading(true);
                 layout
                 onClick={() => {
   setBookingType("membership");
+                  setIsOptionsLoading(true);
   setSelectedOption("");
 }}
                 className="cursor-pointer rounded-3xl border border-primary/20 bg-white/5 p-8 hover:border-primary transition-all duration-500"
@@ -134,7 +138,11 @@ setIsCustomerLoading(true);
             {(!bookingType || bookingType === "service") && (
               <motion.div
                 layout
-                onClick={() => setBookingType("service")}
+               onClick={() => {
+  setBookingType("service");
+  setIsOptionsLoading(true);
+  setSelectedOption("");
+}}
                 className="cursor-pointer rounded-3xl border border-white/10 bg-white/5 p-8 hover:border-primary transition-all duration-500"
               >
                 <p className="text-primary uppercase tracking-[0.3em] text-xs mb-4">
@@ -174,7 +182,18 @@ setIsCustomerLoading(true);
                   ? "Membership Booking Selected"
                   : "Single Service Booking Selected"}
               </h4>
-
+{isOptionsLoading ? (
+  <div className="mt-6 rounded-2xl border border-primary/20 bg-black/20 px-6 py-5 text-center">
+    <p className="text-primary text-xs uppercase tracking-[0.3em] mb-2">
+      Preparing Your Options
+    </p>
+    <p className="text-white/80">
+      {bookingType === "membership"
+        ? "Membership plans are being prepared for your selection."
+        : "Curated services are loading for your selection."}
+    </p>
+  </div>
+) : (
               
   <select
     value={selectedOption}
@@ -207,11 +226,11 @@ setIsCustomerLoading(true);
   );
 })}
   </select>
-
+)}
             </div>
           )}
 
-{bookingType && selectedOption && (
+{bookingType && selectedOption && !isOptionsLoading && (
   <div className="mt-8 grid grid-cols-1 gap-6">
     <input
       type="tel"
