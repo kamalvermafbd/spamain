@@ -178,7 +178,16 @@ setIsCustomerLoading(true);
               
   <select
     value={selectedOption}
-    onChange={(e) => setSelectedOption(e.target.value)}
+    onChange={(e) => {
+  const value = e.target.value;
+  setSelectedOption(value);
+
+  if (!value) {
+    setPhone("");
+    setCustomerName("");
+    setCustomerEmail("");
+  }
+}}
     className="mt-6 w-full rounded-2xl border border-primary/20 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary [&>option]:text-black"
   >
     <option value="">Select an option</option>
@@ -202,8 +211,8 @@ setIsCustomerLoading(true);
             </div>
           )}
 
-{bookingType && (
-  <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+{bookingType && selectedOption && (
+  <div className="mt-8 grid grid-cols-1 gap-6">
     <input
       type="tel"
       inputMode="numeric"
@@ -216,7 +225,10 @@ onChange={(e) => {
 if (value.length === 1 && !/[6-9]/.test(value)) return;
 value = value.slice(0, 10);
 setPhone(value);
-
+if (value.length < 10) {
+  setCustomerName("");
+  setCustomerEmail("");
+}
 if (value.length === 10) {
   fetchCustomerByPhone(value);
 }
@@ -224,7 +236,8 @@ if (value.length === 10) {
      className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary disabled:opacity-60 disabled:cursor-not-allowed"
       
     />
-
+{phone.length === 10 && (
+      <>
     <input
       type="text"
       disabled={isCustomerLoading}
@@ -242,7 +255,9 @@ placeholder={isCustomerLoading ? "Fetching email..." : "Email Address"}
 onChange={(e) => setCustomerEmail(e.target.value)}
       className="md:col-span-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
     />
-  </div>
+      </>
+  )}
+      </div>
 )}
 
 
