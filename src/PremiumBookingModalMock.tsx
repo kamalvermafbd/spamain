@@ -183,16 +183,21 @@ setIsCustomerLoading(true);
                   : "Single Service Booking Selected"}
               </h4>
 {isOptionsLoading ? (
-  <div className="mt-6 rounded-2xl border border-primary/20 bg-black/20 px-6 py-5 text-center">
-    <p className="text-primary text-xs uppercase tracking-[0.3em] mb-2">
-      Preparing Your Options
-    </p>
-    <p className="text-white/80">
-      {bookingType === "membership"
-        ? "Membership plans are being prepared for your selection."
-        : "Curated services are loading for your selection."}
-    </p>
-  </div>
+  <div className="mt-8 rounded-3xl border-2 border-primary/60 bg-gradient-to-br from-primary/10 to-black/40 px-8 py-8 text-center shadow-[0_0_30px_rgba(212,175,55,0.12)]">
+  <p className="text-primary text-xs uppercase tracking-[0.4em] mb-3 font-semibold">
+    Preparing Your Experience
+  </p>
+  <h5 className="text-2xl font-headline text-white mb-3">
+    {bookingType === "membership"
+      ? "Preparing Your Membership Experiences"
+      : "Preparing Your Service Menu"}
+  </h5>
+  <p className="text-white/80 leading-relaxed max-w-xl mx-auto">
+    {bookingType === "membership"
+      ? "Our wellness concierge is curating the most suitable plans for your selection."
+      : "Our curated rituals are being arranged for your selection."}
+  </p>
+</div>
 ) : (
               
   <select
