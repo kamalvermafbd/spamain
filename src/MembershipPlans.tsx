@@ -46,8 +46,8 @@ export default function MembershipPlans({
   }}
           className={`p-10 rounded-xl flex flex-col h-full relative ${
             plan.featured
-              ? "bg-surface-container-high border-t-4 border-primary shadow-2xl"
-              : "glass-card border border-outline-variant/10"
+              ? "bg-white/[0.05] border-t-4 border-primary shadow-2xl backdrop-blur-xl"
+              : "bg-white/[0.03] border border-white/10 backdrop-blur-xl"
           }`}
         >
           {plan.featured && (
@@ -79,7 +79,7 @@ export default function MembershipPlans({
               >
                 ₹{plan.price}
               </span>
-              <span className="text-on-surface-variant text-sm">
+              <span className="text-white/60 text-sm">
                 /{plan.period}
               </span>
             </div>
@@ -90,7 +90,7 @@ export default function MembershipPlans({
               <li
                 key={i}
                 className={`flex items-center gap-3 text-sm ${
-                  plan.featured ? "text-white" : "text-on-surface-variant"
+                  "text-white/80"
                 }`}
               >
                 <CheckCircle2 className="w-5 h-5 text-primary" />
