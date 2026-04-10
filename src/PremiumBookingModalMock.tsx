@@ -179,7 +179,7 @@ setIsCustomerLoading(true);
   <select
     value={selectedOption}
     onChange={(e) => setSelectedOption(e.target.value)}
-    className="mt-6 w-full rounded-2xl border border-primary/20 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
+    className="mt-6 w-full rounded-2xl border border-primary/20 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary [&>option]:text-black"
   >
     <option value="">Select an option</option>
     {(bookingType === "membership"
