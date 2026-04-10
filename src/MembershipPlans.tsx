@@ -19,30 +19,31 @@ export default function MembershipPlans({
 }) {
   return (
     <motion.div
-  initial="hidden"
-animate="show"
-  variants={{
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.18,
-      },
-    },
-  }}
-  className="grid grid-cols-1 md:grid-cols-3 gap-8"
->
+      initial="hidden"
+      animate="show"
+      variants={{
+        hidden: {},
+        show: {
+          transition: {
+            staggerChildren: 0.18,
+          },
+        },
+      }}
+      className="grid grid-cols-1 md:grid-cols-3 gap-8"
+    >
       {plans.map((plan) => (
-       <motion.div
-  key={plan.id}
-  variants={{
-    hidden: { opacity: 0, y: 40, scale: 0.96 },
-    show: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  }}
+        <motion.div
+          key={plan.id}
+          whileHover={{ y: -8, scale: 1.02 }}
+          variants={{
+            hidden: { opacity: 0, y: 40, scale: 0.96 },
+            show: {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              transition: { duration: 0.6, ease: "easeOut" },
+            },
+          }}
           className={`p-10 rounded-xl flex flex-col h-full relative ${
             plan.featured
               ? "bg-white/[0.05] border-t-4 border-primary shadow-2xl backdrop-blur-xl"
@@ -60,7 +61,7 @@ animate="show"
               {plan.tag}
             </span>
 
-            <h4 className="font-headline text-3xl mt-6">
+            <h4 className="font-headline text-3xl mt-6 text-white">
               {plan.name}
             </h4>
 
@@ -88,9 +89,7 @@ animate="show"
             {plan.features.map((feature, i) => (
               <li
                 key={i}
-                className={`flex items-center gap-3 text-sm ${
-                  "text-white/80"
-                }`}
+                className="flex items-center gap-3 text-sm text-white/80"
               >
                 <CheckCircle2 className="w-5 h-5 text-primary" />
                 {feature}
@@ -107,8 +106,8 @@ animate="show"
           >
             {plan.buttonText}
           </button>
-       </motion.div>
-         ))}
+        </motion.div>
+      ))}
     </motion.div>
   );
 }
