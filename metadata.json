@@ -1,0 +1,5 @@
+{
+  "name": "The Cinematic Sanctuary",
+  "description": "A luxury spa experience platform featuring signature rituals, branch discovery, and premium wellness standards in Faridabad.",
+  "requestFramePermissions": ["geolocation"]
+}

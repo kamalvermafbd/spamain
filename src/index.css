@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,700;1,400&family=Manrope:wght@200;300;400;500;600;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-headline: "Noto Serif", serif;
+  --font-body: "Manrope", sans-serif;
+
+  --color-primary: #e9c349;
+  --color-primary-container: #c5a12a;
+  --color-on-primary: #3c2f00;
+  
+  --color-secondary: #d6c4a5;
+  --color-on-secondary: #392f19;
+  
+  --color-background: #131313;
+  --color-on-surface: #e5e2e1;
+  --color-on-surface-variant: #d1c5b4;
+  
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-low: #1c1b1b;
+  --color-surface-container: #201f1f;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-highest: #353534;
+  
+  --color-outline-variant: #4e4639;
+}
+
+@utility glass-card {
+  background: rgba(19, 19, 19, 0.7);
+  backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(209, 197, 180, 0.2);
+}
+
+@utility text-gold-gradient {
+  background: linear-gradient(to right, #e9c349, #c5a12a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary;
+  }
+}
