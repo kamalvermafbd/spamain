@@ -13,6 +13,7 @@ import { apiGet } from "./lib/api";
 import HomeLibraryPrefetch from "./HomeLibraryPrefetch";
 import ServicesPrefetch from "./ServicesPrefetch";
 import PremiumBookingModalMock from "./PremiumBookingModalMock";
+import MembershipPlans from "./MembershipPlans";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
