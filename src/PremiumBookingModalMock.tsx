@@ -14,10 +14,10 @@ export default function PremiumBookingModalMock({
 const [phone, setPhone] = useState("");
 const [customerName, setCustomerName] = useState("");
 const [customerEmail, setCustomerEmail] = useState("");
-  
+const [isCustomerLoading, setIsCustomerLoading] = useState(false);  
   const fetchCustomerByPhone = async (mobile: string) => {
   if (mobile.length !== 10) return;
-
+setIsCustomerLoading(true);
   try {
     const res = await apiGet("getCustomerByPhone", {
       phone: mobile,
@@ -29,7 +29,9 @@ const [customerEmail, setCustomerEmail] = useState("");
     }
   } catch (error) {
     console.error("Customer fetch failed", error);
-  }
+  } finally {
+  setIsCustomerLoading(false);
+}
 };
   
   return (
@@ -167,7 +169,8 @@ onChange={(e) => {
 
     <input
       type="text"
-      placeholder="Full Name"
+      disabled={isCustomerLoading}
+placeholder={isCustomerLoading ? "Loading customer..." : "Full Name"}
       value={customerName}
 onChange={(e) => setCustomerName(e.target.value)}
       className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
@@ -175,7 +178,8 @@ onChange={(e) => setCustomerName(e.target.value)}
 
     <input
       type="email"
-      placeholder="Email Address"
+      disabled={isCustomerLoading}
+placeholder={isCustomerLoading ? "Fetching email..." : "Email Address"}
       value={customerEmail}
 onChange={(e) => setCustomerEmail(e.target.value)}
       className="md:col-span-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
