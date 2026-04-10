@@ -1437,11 +1437,11 @@ const Home = () => (
 
 export default function App() {
   const [services, setServices] = useState<any[]>([]);
-
+const [membershipPlans, setMembershipPlans] = useState<any[]>([]);
   return (
     <Router>
       <ServicesPrefetch onLoaded={setServices} />
-
+<MembershipPrefetch onLoaded={setMembershipPlans} />
       <div className="min-h-screen">
         <Navbar />
         <Routes>
