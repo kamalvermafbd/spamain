@@ -11,6 +11,7 @@
 import { useState, useEffect } from "react";
 import { apiGet } from "./lib/api";
 import HomeLibraryPrefetch from "./HomeLibraryPrefetch";
+import ServicesPrefetch from "./ServicesPrefetch";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -469,7 +470,12 @@ const HomeSignaturePreview = () => (
   </section>
 );
 
-const ServicesTreatmentGrid = () => (
+const ServicesTreatmentGrid = ({ services = [] }: { services?: any[] }) => {
+  const [spaServices, setSpaServices] = useState(services);
+useEffect(() => {
+  setSpaServices(services);
+}, [services]);
+  return (
   <section className="py-24 px-6 md:px-12 bg-surface">
     <div className="max-w-screen-2xl mx-auto">
       <div className="text-center mb-20">
@@ -479,91 +485,59 @@ const ServicesTreatmentGrid = () => (
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {[
-          {
-            title: "Swedish Massage",
-            duration: "60/90 Min",
-            desc: "Classic gliding strokes for circulation and relaxation.",
-            src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAP2FogJcs8lWddKoQ0Ys5PW2299bCnFv4cZ6lVH-QU910hEqYfHB98vG554kLYXE5vxCCkfeq00-4EXVZy2w4k1fhOMdMkyEEogiEQ7WoCebrp_NdyXhKhoxJH0t-mCeqffRm87R-n-hO5SkaU61ZLS9JztYIuxnij4yetzydCB5TmvDIxmJEg0rOqMo-DCfZxs849zJvtbrmE6n7w9aSeHTPXU-WPC2zjO2OoYpAz81D-t2GRQUzYbeOaO8Df14NQCk8iM6VwTUS7"
-          },
-          {
-            title: "Deep Tissue",
-            duration: "60/90 Min",
-            desc: "Targeted pressure for chronic tension and muscle knots.",
-            src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBdUDodJGgYt2riBhNAf1cUUOPrXugGK7U5U3Kq4WmGkdzmZ3sWnkXIa7tc_Z_W7eGtXGQ5F6A9tV2gXnPwRzwm_QuREhtb-w4o-InGqJ23VLe5Bl4DjbzqzyUm5yeaKrS4d9W8fUZYXmAWURROsI_1xHlz1zbeKn9i9Lka932E2cxcTtUxGiguyKxFOWEIipAkv1yDN-FBC-4fDkYuEEgvFMXMK7K2EhkLRUSKwfbDjjgOpsXDowrY8PHmdkEUCgnpEHfwhR-qgbbz"
-          },
-          {
-            title: "Aroma Therapy",
-            duration: "60/90 Min",
-            desc: "Sensory healing with organic botanical extracts.",
-            src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAaU3iXko828hVvEsScsUwkgM-PlR-BwIZyAKF3jS-8EqUykYOWmyuQCdyYWX_mxljVJW1UDxFrx9QvVmNWUtxkJcgXvl9meQt55MzNceH8aik1dethjpOJTZdgmwU3oHkbBNKJqx2Vq908Fl1UrB8Ptl6NbuIE_ljxke2KEu8asdUzcfnhYKZbuhdKUhrvI47bjsFLqpKGoCZc3SAh2mqlsiBfgOSUcNEjmi_XuDsxv93Cxa7MSiYnGvoSLLA8lQ8lt3aDChOxdTy1"
-          },
-          {
-            title: "Thai Ritual",
-            duration: "90/120 Min",
-            desc: "Ancient stretching and rhythmic pressure for energy flow.",
-           src: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop"
-          },
-          {
-            title: "Signature Facial",
-            duration: "60 Min",
-            desc: "Rejuvenating skin ritual for a cinematic glow.",
-            src: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=2070&auto=format&fit=crop"
-          },
-          {
-            title: "Body Polish",
-            duration: "45 Min",
-            desc: "Exfoliating treatment for silky smooth skin.",
-            src: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=2070&auto=format&fit=crop"
-          }
-        ].map((item, idx) => (
-          <motion.div 
-            key={idx}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            className="glass-card rounded-2xl overflow-hidden group hover:border-primary/30 transition-all duration-500"
-          >
-          <div className="relative aspect-video rounded-xl overflow-hidden mb-6">
-  {item.src.endsWith(".mp4") ? (
-    <video
-      src={item.src}
-      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-      muted
-      loop
-      playsInline
-      autoPlay
-      preload="metadata"
-    />
-  ) : (
-    <img
-      src={item.src}
-      alt={item.title}
-      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-      referrerPolicy="no-referrer"
-    />
-  )}
+        {/* 🔴 REPLACED static array with API prefetched services */}
+{spaServices.map((item, idx) => (
+  <motion.div 
+    key={item.no || idx}
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: idx * 0.1 }}
+    className="glass-card rounded-2xl overflow-hidden group hover:border-primary/30 transition-all duration-500"
+  >
+    <div className="relative aspect-video rounded-xl overflow-hidden mb-6">
+      {item.src?.endsWith(".mp4") ? (
+        <video
+          src={item.src}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          muted
+          loop
+          playsInline
+          autoPlay
+          preload="metadata"
+        />
+      ) : (
+        <img
+          src={item.src}
+          alt={item.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          referrerPolicy="no-referrer"
+        />
+      )}
 
-  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-primary font-bold uppercase tracking-widest">
-    {item.duration}
-  </div>
-</div>
-            
-            <div className="p-8">
-              <h3 className="font-headline text-2xl text-on-surface mb-3 group-hover:text-primary transition-colors">{item.title}</h3>
-              <p className="text-on-surface-variant text-sm font-body leading-relaxed mb-8">{item.desc}</p>
-              <button className="w-full py-4 bg-primary/10 text-primary rounded-full font-body font-bold uppercase text-[10px] tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-500">
-                Book Ritual
-              </button>
-            </div>
-          </motion.div>
-        ))}
+      <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-primary font-bold uppercase tracking-widest">
+        {item.duration}
+      </div>
+    </div>
+    
+    <div className="p-8">
+      <h3 className="font-headline text-2xl text-on-surface mb-3 group-hover:text-primary transition-colors">
+        {item.title}
+      </h3>
+      <p className="text-on-surface-variant text-sm font-body leading-relaxed mb-8">
+        {item.desc}
+      </p>
+      <button className="w-full py-4 bg-primary/10 text-primary rounded-full font-body font-bold uppercase text-[10px] tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-500">
+        Book Ritual
+      </button>
+    </div>
+  </motion.div>
+))}
       </div>
     </div>
   </section>
 );
-
+};
 const ExclusiveRituals = () => (
   <section className="bg-surface-container-lowest py-32 px-6 md:px-12 relative overflow-hidden">
     <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent"></div>
