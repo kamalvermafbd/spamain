@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiGet } from "./lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -10,7 +11,27 @@ export default function PremiumBookingModalMock({
   const [bookingType, setBookingType] = useState<
     "membership" | "service" | null
   >(null);
+const [phone, setPhone] = useState("");
+const [customerName, setCustomerName] = useState("");
+const [customerEmail, setCustomerEmail] = useState("");
+  
+  const fetchCustomerByPhone = async (mobile: string) => {
+  if (mobile.length !== 10) return;
 
+  try {
+    const res = await apiGet("getCustomerByPhone", {
+      phone: mobile,
+    });
+
+    if (res?.success && res.customer) {
+      setCustomerName(res.customer.name || "");
+      setCustomerEmail(res.customer.email || "");
+    }
+  } catch (error) {
+    console.error("Customer fetch failed", error);
+  }
+};
+  
   return (
     <AnimatePresence>
       <motion.div
@@ -127,6 +148,46 @@ export default function PremiumBookingModalMock({
               </h4>
             </div>
           )}
+
+{bookingType && (
+  <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <input
+      type="tel"
+      placeholder="Mobile Number"
+      value={phone}
+onChange={(e) => {
+  const value = e.target.value;
+  setPhone(value);
+
+  if (value.length === 10) {
+    fetchCustomerByPhone(value);
+  }
+}}
+      className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
+    />
+
+    <input
+      type="text"
+      placeholder="Full Name"
+      value={customerName}
+onChange={(e) => setCustomerName(e.target.value)}
+      className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
+    />
+
+    <input
+      type="email"
+      placeholder="Email Address"
+      value={customerEmail}
+onChange={(e) => setCustomerEmail(e.target.value)}
+      className="md:col-span-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
+    />
+  </div>
+)}
+
+
+          
+
+          
         </motion.div>
       </motion.div>
     </AnimatePresence>
