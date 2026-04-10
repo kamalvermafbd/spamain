@@ -1,4 +1,5 @@
 import { CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 type MembershipPlan = {
   id: string;
@@ -17,10 +18,32 @@ export default function MembershipPlans({
   plans?: MembershipPlan[];
 }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <motion.div
+  initial="hidden"
+  whileInView="show"
+  viewport={{ once: true, amount: 0.2 }}
+  variants={{
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.18,
+      },
+    },
+  }}
+  className="grid grid-cols-1 md:grid-cols-3 gap-8"
+>
       {plans.map((plan) => (
-        <div
-          key={plan.id}
+       <motion.div
+  key={plan.id}
+  variants={{
+    hidden: { opacity: 0, y: 40, scale: 0.96 },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  }}
           className={`p-10 rounded-xl flex flex-col h-full relative ${
             plan.featured
               ? "bg-surface-container-high border-t-4 border-primary shadow-2xl"
@@ -85,8 +108,8 @@ export default function MembershipPlans({
           >
             {plan.buttonText}
           </button>
-        </div>
-      ))}
-    </div>
+       </motion.div>
+         ))}
+    </motion.div>
   );
 }
