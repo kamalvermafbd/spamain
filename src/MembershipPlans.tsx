@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 
 type MembershipPlan = {
@@ -10,29 +9,13 @@ type MembershipPlan = {
   featured: boolean;
   features: string[];
   buttonText: string;
-  sortOrder: number;
 };
 
-export default function MembershipPlans() {
-  const [plans, setPlans] = useState<MembershipPlan[]>([]);
-
-  useEffect(() => {
-    loadMembershipPlans();
-  }, []);
-
-  const loadMembershipPlans = async () => {
-    try {
-      const res = await fetch(`${API_URL}?api=getMembershipPlans`);
-      const json = await res.json();
-
-      if (json.success) {
-        setPlans(json.data);
-      }
-    } catch (error) {
-      console.error("Membership API failed", error);
-    }
-  };
-
+export default function MembershipPlans({
+  plans = [],
+}: {
+  plans?: MembershipPlan[];
+}) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
       {plans.map((plan) => (
