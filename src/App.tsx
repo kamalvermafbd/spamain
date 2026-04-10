@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { apiGet } from "./lib/api";
 import HomeLibraryPrefetch from "./HomeLibraryPrefetch";
 import ServicesPrefetch from "./ServicesPrefetch";
+import PremiumBookingModalMock from "./PremiumBookingModalMock";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -48,7 +49,7 @@ import {
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+const [bookingModalOpen, setBookingModalOpen] = useState(false);
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/70 backdrop-blur-xl shadow-2xl shadow-black/40 border-none">
       <div className="flex justify-between items-center px-6 md:px-12 py-4 lg:py-6 w-full max-w-screen-2xl mx-auto">
@@ -66,9 +67,12 @@ const Navbar = () => {
         </div>
 
         {/* Desktop CTA */}
-        <button className="hidden lg:block bg-primary hover:scale-105 transition-all duration-500 text-on-primary px-8 py-2.5 rounded-full font-body font-bold text-xs uppercase tracking-widest">
-          Book Now
-        </button>
+       <button
+  onClick={() => setBookingModalOpen(true)}
+  className="hidden lg:block bg-primary hover:scale-105 transition-all duration-500 text-on-primary px-8 py-2.5 rounded-full font-body font-bold text-xs uppercase tracking-widest"
+>
+  Begin Your Ritual
+</button>
 
         {/* Mobile Menu Toggle */}
         <button 
@@ -96,13 +100,26 @@ const Navbar = () => {
               <Link className="text-secondary hover:text-primary transition-colors py-2" to="/services" onClick={() => setIsOpen(false)}>Services</Link>
               <Link className="text-secondary hover:text-primary transition-colors py-2" to="/vlogs" onClick={() => setIsOpen(false)}>Media</Link>
               <Link className="text-secondary hover:text-primary transition-colors py-2" to="/contact" onClick={() => setIsOpen(false)}>Contact Us</Link>
-              <button className="mt-4 bg-primary text-on-primary px-10 py-3 rounded-full font-body font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20" onClick={() => setIsOpen(false)}>
-                Book Now
-              </button>
+              <button
+  className="mt-4 bg-primary text-on-primary px-10 py-3 rounded-full font-body font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20"
+  onClick={() => {
+    setBookingModalOpen(true);
+    setIsOpen(false);
+  }}
+>
+  Begin Your Ritual
+</button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+            {bookingModalOpen && (
+        <PremiumBookingModalMock
+          onClose={() => setBookingModalOpen(false)}
+        />
+      )}
+      
     </nav>
   );
 };
