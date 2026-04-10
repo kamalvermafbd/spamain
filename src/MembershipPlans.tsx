@@ -20,8 +20,7 @@ export default function MembershipPlans({
   return (
     <motion.div
   initial="hidden"
-  whileInView="show"
-  viewport={{ once: true, amount: 0.2 }}
+animate="show"
   variants={{
     hidden: {},
     show: {
