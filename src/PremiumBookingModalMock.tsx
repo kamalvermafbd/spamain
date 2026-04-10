@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { apiGet } from "./lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
@@ -15,6 +15,29 @@ const [phone, setPhone] = useState("");
 const [customerName, setCustomerName] = useState("");
 const [customerEmail, setCustomerEmail] = useState("");
 const [isCustomerLoading, setIsCustomerLoading] = useState(false);  
+const [selectedOption, setSelectedOption] = useState("");
+const [serviceOptions, setServiceOptions] = useState<any[]>([]);
+const [membershipOptions, setMembershipOptions] = useState<any[]>([]);
+
+  useEffect(() => {
+  const loadDropdowns = async () => {
+    const [servicesRes, membershipRes] = await Promise.all([
+      apiGet("getServices"),
+      apiGet("getMembershipPlans"),
+    ]);
+
+    if (servicesRes?.success) {
+      setServiceOptions(servicesRes.data || []);
+    }
+
+    if (membershipRes?.success) {
+      setMembershipOptions(membershipRes.data || []);
+    }
+  };
+
+ loadDropdowns();
+}, []);
+  
   const fetchCustomerByPhone = async (mobile: string) => {
   if (mobile.length !== 10) return;
 setIsCustomerLoading(true);
@@ -137,6 +160,7 @@ setIsCustomerLoading(true);
           )}
 
           {/* Selected Summary */}
+          
           {bookingType && (
             <div className="mt-10 rounded-2xl border border-primary/20 bg-primary/5 p-6 text-center">
               <p className="text-primary uppercase tracking-[0.3em] text-xs mb-2">
@@ -147,6 +171,24 @@ setIsCustomerLoading(true);
                   ? "Membership Booking Selected"
                   : "Single Service Booking Selected"}
               </h4>
+
+              
+  <select
+    value={selectedOption}
+    onChange={(e) => setSelectedOption(e.target.value)}
+    className="mt-6 w-full rounded-2xl border border-primary/20 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
+  >
+    <option value="">Select an option</option>
+    {(bookingType === "membership"
+      ? membershipOptions
+      : serviceOptions
+    ).map((item) => (
+      <option key={item.id || item.no} value={item.name || item.title}>
+        {item.name || item.title}
+      </option>
+    ))}
+  </select>
+
             </div>
           )}
 
