@@ -48,9 +48,11 @@ import {
 } from "lucide-react";
 
 const Navbar = () => {
+ 
   const [isOpen, setIsOpen] = useState(false);
 const [bookingModalOpen, setBookingModalOpen] = useState(false);
   return (
+   <>
     <nav className="fixed top-0 w-full z-50 bg-background/70 backdrop-blur-xl shadow-2xl shadow-black/40 border-none">
       <div className="flex justify-between items-center px-6 md:px-12 py-4 lg:py-6 w-full max-w-screen-2xl mx-auto">
         <Link to="/" className="text-xl md:text-2xl font-headline tracking-tighter text-primary" onClick={() => setIsOpen(false)}>
@@ -112,15 +114,15 @@ const [bookingModalOpen, setBookingModalOpen] = useState(false);
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
-
-            {bookingModalOpen && (
-        <PremiumBookingModalMock
-          onClose={() => setBookingModalOpen(false)}
-        />
-      )}
-      
+          </AnimatePresence>
     </nav>
+
+    {bookingModalOpen && (
+      <PremiumBookingModalMock
+        onClose={() => setBookingModalOpen(false)}
+      />
+    )}
+  </>
   );
 };
 
