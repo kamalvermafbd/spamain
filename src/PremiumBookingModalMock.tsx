@@ -154,17 +154,23 @@ setIsCustomerLoading(true);
   <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
     <input
       type="tel"
+      inputMode="numeric"
+maxLength={10}
+pattern="[6-9][0-9]{9}"
       placeholder="Mobile Number"
       value={phone}
 onChange={(e) => {
-  const value = e.target.value;
-  setPhone(value);
+  let value = e.target.value.replace(/\D/g, "");
+if (value.length === 1 && !/[6-9]/.test(value)) return;
+value = value.slice(0, 10);
+setPhone(value);
 
-  if (value.length === 10) {
-    fetchCustomerByPhone(value);
-  }
+if (value.length === 10) {
+  fetchCustomerByPhone(value);
+}
 }}
-      className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
+     className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary disabled:opacity-60 disabled:cursor-not-allowed"
+      
     />
 
     <input
@@ -173,7 +179,7 @@ onChange={(e) => {
 placeholder={isCustomerLoading ? "Loading customer..." : "Full Name"}
       value={customerName}
 onChange={(e) => setCustomerName(e.target.value)}
-      className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
+   className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary disabled:opacity-60 disabled:cursor-not-allowed"
     />
 
     <input
