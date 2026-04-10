@@ -13,7 +13,7 @@ import { apiGet } from "./lib/api";
 import HomeLibraryPrefetch from "./HomeLibraryPrefetch";
 import ServicesPrefetch from "./ServicesPrefetch";
 import PremiumBookingModalMock from "./PremiumBookingModalMock";
-import MembershipPlans from "./MembershipPlans";
+import MembershipPrefetch from "./MembershipPrefetch";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -562,99 +562,15 @@ const ExclusiveRituals = () => (
   <section className="bg-surface-container-lowest py-32 px-6 md:px-12 relative overflow-hidden">
     <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent"></div>
     <div className="max-w-screen-2xl mx-auto relative z-10">
-      <div className="text-center mb-20">
+      
+     <div className="text-center mb-20">
         <h2 className="font-headline text-5xl mb-6 text-on-surface">Exclusive Rituals</h2>
+       
         <p className="text-on-surface-variant font-body max-w-2xl mx-auto">Elevate your wellness journey with curated memberships designed for consistent restoration and cinematic luxury.</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Package 1 */}
-        <div className="glass-card p-10 rounded-xl flex flex-col h-full border border-outline-variant/10">
-          <div className="mb-8">
-            <span className="text-primary font-body text-xs uppercase tracking-widest border border-primary/30 px-3 py-1 rounded-full">Essential</span>
-            <h4 className="font-headline text-3xl mt-6">Essential Wellness</h4>
-            <div className="mt-4 flex items-baseline gap-1">
-              <span className="text-4xl font-headline text-white">₹4,999</span>
-              <span className="text-on-surface-variant text-sm">/month</span>
-            </div>
-          </div>
-          <ul className="space-y-4 mb-12 flex-grow">
-            <li className="flex items-center gap-3 text-on-surface-variant text-sm">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              2x Signature Massages
-            </li>
-            <li className="flex items-center gap-3 text-on-surface-variant text-sm">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              Unlimited Steam Room Access
-            </li>
-            <li className="flex items-center gap-3 text-on-surface-variant text-sm">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              15% Off All Skincare Products
-            </li>
-          </ul>
-          <button className="w-full py-4 border border-primary/50 text-primary rounded-full font-body text-xs uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-500">Subscribe Now</button>
-        </div>
-        {/* Package 2 (Featured) */}
-        <div className="bg-surface-container-high p-10 rounded-xl flex flex-col h-full border-t-4 border-primary shadow-2xl relative">
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-on-primary px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">Most Immersive</div>
-          <div className="mb-8 text-center">
-            <span className="text-primary font-body text-xs uppercase tracking-widest">Premium</span>
-            <h4 className="font-headline text-3xl mt-6">Premium Escape</h4>
-            <div className="mt-4 flex items-baseline justify-center gap-1">
-              <span className="text-5xl font-headline text-primary">₹8,999</span>
-              <span className="text-on-surface-variant text-sm">/month</span>
-            </div>
-          </div>
-          <ul className="space-y-4 mb-12 flex-grow">
-            <li className="flex items-center gap-3 text-white text-sm">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              4x Any Treatment Choice
-            </li>
-            <li className="flex items-center gap-3 text-white text-sm">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              Priority Booking & Private Suite
-            </li>
-            <li className="flex items-center gap-3 text-white text-sm">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              Complimentary Monthly Body Polish
-            </li>
-            <li className="flex items-center gap-3 text-white text-sm">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              VIP Guest Pass (1 per month)
-            </li>
-          </ul>
-          <button className="w-full py-4 bg-primary text-on-primary rounded-full font-body text-xs uppercase tracking-widest hover:scale-[1.02] transition-all duration-500 shadow-xl shadow-primary/20">Claim Membership</button>
-        </div>
-        {/* Package 3 */}
-        <div className="glass-card p-10 rounded-xl flex flex-col h-full border border-outline-variant/10">
-          <div className="mb-8">
-            <span className="text-primary font-body text-xs uppercase tracking-widest border border-primary/30 px-3 py-1 rounded-full">Holistic</span>
-            <h4 className="font-headline text-3xl mt-6">Zenith Luxury</h4>
-            <div className="mt-4 flex items-baseline gap-1">
-              <span className="text-4xl font-headline text-white">₹14,999</span>
-              <span className="text-on-surface-variant text-sm">/month</span>
-            </div>
-          </div>
-          <ul className="space-y-4 mb-12 flex-grow">
-            <li className="flex items-center gap-3 text-on-surface-variant text-sm">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              Daily Access to Spa Sanctuary
-            </li>
-            <li className="flex items-center gap-3 text-on-surface-variant text-sm">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              Personalized Wellness Concierge
-            </li>
-            <li className="flex items-center gap-3 text-on-surface-variant text-sm">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              Couple Suite Privileges
-            </li>
-            <li className="flex items-center gap-3 text-on-surface-variant text-sm">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              Exclusive Festive Offers
-            </li>
-          </ul>
-          <button className="w-full py-4 border border-primary/50 text-primary rounded-full font-body text-xs uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-500">Subscribe Now</button>
-        </div>
-      </div>
+     
+<MembershipPrefetch />
+     
     </div>
   </section>
 );
