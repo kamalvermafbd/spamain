@@ -179,7 +179,7 @@ const handleBookingSubmit = () => {
         ? "plan selected"
         : "membership selected",
     consent: "Yes",
-    timestamp: new Date().toLocaleString("en-GB"),
+    timestamp: new Date().toLocaleString("en-GB").replace(",", ""),
     status: "Pending",
     email: customerEmail,
     charges:
