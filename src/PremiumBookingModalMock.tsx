@@ -260,10 +260,11 @@ setIsCustomerLoading(true);
     </select>
 
  {bookingType === "membership" &&
-  selectedMembership?.features && (
+  selectedMembership && (
     <>
       <p className="mt-3 text-sm text-primary font-medium">
-        ₹{selectedMembership.price} / {selectedMembership.period}
+        ₹{selectedMembership?.price || 0} /{" "}
+        {selectedMembership?.period || "month"}
       </p>
 
       <div className="mt-3 flex flex-wrap gap-2">
@@ -288,7 +289,7 @@ setIsCustomerLoading(true);
 )}
 
 {bookingType && selectedOption && !isOptionsLoading && (
-{bookingType && selectedOption && !isOptionsLoading && (
+
   <div className="mt-8 grid grid-cols-1 gap-6">
 
 <select
@@ -351,10 +352,6 @@ onChange={(e) => setCustomerEmail(e.target.value)}
       </div>
 )}
 
-
-          
-
-          
         </motion.div>
       </motion.div>
     </AnimatePresence>
