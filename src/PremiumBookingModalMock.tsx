@@ -55,12 +55,19 @@ const [serviceVariants, setServiceVariants] = useState<any[]>([]);
       (s) => s.title === defaultSelectedOption
     );
 
-    if (selected?.no) {
-      apiGet("getServiceVariants", { no: selected.no }).then((res) => {
-        setServiceVariants(res?.data || []);
-        setSelectedVariant("");
-      });
-    }
+   if (selected?.no) {
+  setVariantsLoading(true);
+  setSelectedVariant("");
+  setServiceVariants([]);
+
+  apiGet("getServiceVariants", { no: selected.no })
+    .then((res) => {
+      setServiceVariants(res?.data || []);
+    })
+    .finally(() => {
+      setVariantsLoading(false);
+    });
+}
   }
 }, [defaultBookingType, defaultSelectedOption, serviceOptions]);
 
