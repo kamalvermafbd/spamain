@@ -415,7 +415,9 @@ if (bookingType === "service") {
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
     <input
       type="date"
-      min={new Date().toISOString().split("T")[0]}
+      min={new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+  .toISOString()
+  .split("T")[0]}
       value={bookingDate}
   onChange={(e) => {
   const value = e.target.value;
