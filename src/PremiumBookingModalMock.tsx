@@ -640,7 +640,7 @@ onChange={(e) => setCustomerEmail(e.target.value)}
       </h3>
 
       <div className="space-y-4 text-sm text-white/80">
-  <div className="space-y-2 border-b border-white/10 pb-4">
+  <div className="space-y-2 border-b-2 border-primary/40 pb-4">
     <p className="text-white font-medium">Customer Details</p>
    <div className="space-y-2">
   <div className="flex">
@@ -661,7 +661,7 @@ onChange={(e) => setCustomerEmail(e.target.value)}
 </div>
   </div>
 
-  <div className="space-y-2 pt-2">
+  <div className="space-y-2 pt-4">
     <p className="text-white font-medium">Booking Details</p>
   <div className="space-y-2">
   <div className="flex">
@@ -715,7 +715,7 @@ onChange={(e) => setCustomerEmail(e.target.value)}
       </p>
 <button
   onClick={() => setShowSummary(false)}
-  className="mt-4 w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-white hover:border-primary transition"
+  className="mt-4 w-full rounded-2xl border border-primary/30 bg-primary/5 px-5 py-3 text-primary hover:bg-primary/10 transition"
 >
   Edit Details
 </button>
