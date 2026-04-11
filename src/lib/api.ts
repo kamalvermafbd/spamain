@@ -1,5 +1,5 @@
 export const API_BASE =
-  "https://script.google.com/macros/s/AKfycbxMnCC8ucaOnzSKR9YcJGIcWM0Ib-h4GI-uWyeHQgy1yAqPpVvPCgEpQucOTewAnas6/exec";
+  "https://script.google.com/macros/s/AKfycbxj99hNuDb8XGh0PP-WeFhtMPtJm3tRF3i56y5qKN4TbYfBiDwz7kKgDTeBllDaHvel/exec";
 
 export async function apiGet(api: string, params: Record<string, string> = {}) {
   const query = new URLSearchParams({
