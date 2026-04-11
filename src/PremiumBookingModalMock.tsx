@@ -152,9 +152,30 @@ const currentMinutes = Math.ceil(rawMinutes / 15) * 15;
 
 
 const handleBookingSubmit = () => {
-  const formattedDate = bookingDate
+  const todayDate = new Date().toLocaleDateString("en-GB");
+
+const formattedDate =
+  bookingType === "membership"
+    ? todayDate
+    : bookingDate
     ? new Date(bookingDate).toLocaleDateString("en-GB")
     : "";
+
+let calculatedEndDate = formattedDate;
+
+if (bookingType === "membership") {
+  const end = new Date();
+
+  if (selectedMembership?.period === "month") {
+    end.setMonth(end.getMonth() + 1);
+  } else if (selectedMembership?.period === "quarter") {
+    end.setMonth(end.getMonth() + 3);
+  } else if (selectedMembership?.period === "year") {
+    end.setFullYear(end.getFullYear() + 1);
+  }
+
+  calculatedEndDate = end.toLocaleDateString("en-GB");
+}
 
   const payload = {
     name: customerName,
@@ -173,7 +194,7 @@ const handleBookingSubmit = () => {
         : selectedMembership?.period || "",
     branch,
     startdate: formattedDate,
-    enddate: formattedDate,
+   enddate: calculatedEndDate,
     message:
       bookingType === "service"
         ? "plan selected"
@@ -699,15 +720,26 @@ onChange={(e) => setCustomerEmail(e.target.value)}
   <div className="flex">
     <span className="w-20 text-white/70">Date</span>
     <span className="w-4 text-white/70">:</span>
-    <span>
-      {bookingDate
-        ? new Date(bookingDate).toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })
-        : ""}
-    </span>
+
+<span>
+  {bookingType === "membership"
+    ? new Date().toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+    : bookingDate
+    ? new Date(bookingDate).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+    : ""}
+</span>
+
+
+
+    
   </div>
 
   <div className="flex">
