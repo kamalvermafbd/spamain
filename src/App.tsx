@@ -518,6 +518,7 @@ const ServicesTreatmentGrid = ({ services = [] }: { services?: any[] }) => {
   const [spaServices, setSpaServices] = useState(services);
  const [bookingModalOpen, setBookingModalOpen] = useState(false);
 const [selectedService, setSelectedService] = useState("");
+ const [isPreparingBooking, setIsPreparingBooking] = useState(false);
 useEffect(() => {
   setSpaServices(services);
 }, [services]);
@@ -574,10 +575,17 @@ useEffect(() => {
         {item.desc}
       </p>
       <button 
-        onClick={() => {
-    setSelectedService(item.title);
+   onClick={() => {
+  if (isPreparingBooking) return;
+
+  setSelectedService(item.title);
+  setIsPreparingBooking(true);
+
+  setTimeout(() => {
+    setIsPreparingBooking(false);
     setBookingModalOpen(true);
-  }}
+  }, 900);
+}}
        className="w-full py-4 bg-primary/10 text-primary rounded-full font-body font-bold uppercase text-[10px] tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-500">
         Book Ritual
       </button>
@@ -586,7 +594,19 @@ useEffect(() => {
 ))}
       </div>
     </div>
-
+{isPreparingBooking && (
+  <div className="fixed inset-0 z-[120] bg-black/70 backdrop-blur-md flex items-center justify-center px-6">
+    <div className="w-full max-w-md rounded-3xl border border-primary/30 bg-[#111]/95 p-8 text-center shadow-[0_0_40px_rgba(212,175,55,0.15)]">
+      <div className="mx-auto mb-5 h-12 w-12 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
+      <p className="text-xs uppercase tracking-[0.3em] text-[#d4af37] mb-3">
+        Preparing Your Ritual
+      </p>
+      <p className="text-sm text-white/75 leading-relaxed">
+        Personalizing your selected service and loading available durations...
+      </p>
+    </div>
+  </div>
+)}
 {bookingModalOpen && (
   <PremiumBookingModalMock
     onClose={() => setBookingModalOpen(false)}
