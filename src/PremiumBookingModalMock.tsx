@@ -77,6 +77,12 @@ console.log("Selected Branch Timing:", selectedBranchData);
 
   return `${hh}:${mm}`;
 };
+
+const minDate = new Date(
+  Date.now() - new Date().getTimezoneOffset() * 60000
+)
+  .toISOString()
+  .split("T")[0];
   
   const handleBookingSelect = (type: "membership" | "service") => {
   setBookingType(type);
@@ -411,11 +417,7 @@ if (bookingType === "service") {
 ))}
 </select>
 
-const minDate = new Date(
-  Date.now() - new Date().getTimezoneOffset() * 60000
-)
-  .toISOString()
-  .split("T")[0];
+
     
 {bookingType === "service" && selectedVariant && branch && (
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
