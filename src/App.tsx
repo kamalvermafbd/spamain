@@ -121,8 +121,9 @@ const [bookingModalOpen, setBookingModalOpen] = useState(false);
 
     {bookingModalOpen && (
       <PremiumBookingModalMock
-        onClose={() => setBookingModalOpen(false)}
-      />
+  onClose={() => setBookingModalOpen(false)}
+  selectedBranch={localStorage.getItem("selectedBranch") || ""}
+/>
     )}
   </>
   );
@@ -280,7 +281,7 @@ const BranchFinder = () => {
         )[0];
 
         setNearestBranch(nearest);
-
+localStorage.setItem("selectedBranch", nearest.name || "");
         console.log("📍 Nearest branch loaded:", nearest);
       } catch (error) {
         console.error("❌ Branch fetch failed:", error);
