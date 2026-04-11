@@ -355,10 +355,17 @@ setIsCustomerLoading(true);
             </div>
           )}
 
+{bookingType && (
+  <div className="mt-3 mb-3 flex justify-center">
+    <div className="flex flex-col items-center">
+      <div className="h-10 w-[3px] rounded-full bg-gradient-to-b from-[#f4d03f] to-[#d4af37]" />
+      <div className="-mt-1 h-4 w-4 rotate-45 border-b-[3px] border-r-[3px] border-[#d4af37]" />
+    </div>
+  </div>
+)}
+
+          
           {/* Selected Summary */}
-          
-          
-          
 {bookingType && (
             <div className="mt-10 rounded-2xl border border-primary/20 bg-primary/5 p-6 text-center">
               <p className="text-primary uppercase tracking-[0.3em] text-xs mb-2">
