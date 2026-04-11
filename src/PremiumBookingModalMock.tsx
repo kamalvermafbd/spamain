@@ -24,6 +24,7 @@ const [isCustomerLoading, setIsCustomerLoading] = useState(false);
 const [selectedOption, setSelectedOption] = useState("");
 const [serviceOptions, setServiceOptions] = useState<any[]>([]);
 const [membershipOptions, setMembershipOptions] = useState<any[]>([]);
+  const [branchOptions, setBranchOptions] = useState<any[]>([]);
 const [isOptionsLoading, setIsOptionsLoading] = useState(false);
 
   const handleBookingSelect = (type: "membership" | "service") => {
@@ -38,10 +39,11 @@ const [isOptionsLoading, setIsOptionsLoading] = useState(false);
   
   useEffect(() => {
   const loadDropdowns = async () => {
-    const [servicesRes, membershipRes] = await Promise.all([
-      apiGet("getServices"),
-      apiGet("getMembershipPlans"),
-    ]);
+    const [servicesRes, membershipRes, branchesRes] = await Promise.all([
+  apiGet("getServices"),
+  apiGet("getMembershipPlans"),
+  apiGet("getBranches"),
+]);
 
     if (servicesRes?.success) {
       setServiceOptions(servicesRes.data || []);
@@ -50,6 +52,9 @@ const [isOptionsLoading, setIsOptionsLoading] = useState(false);
     if (membershipRes?.success) {
       setMembershipOptions(membershipRes.data || []);
     }
+    if (branchesRes?.success) {
+  setBranchOptions(branchesRes.data || []);
+}
     setIsOptionsLoading(false);
   };
 
@@ -255,8 +260,11 @@ setIsCustomerLoading(true);
   className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary [&>option]:text-black"
 >
   <option value="">Select Branch</option>
-  <option value="Faridabad Sector 15">Faridabad Sector 15</option>
-  <option value="Faridabad NIT">Faridabad NIT</option>
+  {branchOptions.map((item, index) => (
+  <option key={item.id || item.no || index} value={item.name}>
+    {item.name}
+  </option>
+))}
 </select>
     
     <input
