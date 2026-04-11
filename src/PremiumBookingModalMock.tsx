@@ -262,7 +262,7 @@ setIsCustomerLoading(true);
   <option value="">Select Branch</option>
   {branchOptions.map((item, index) => (
   <option key={item.id || item.no || index} value={item.name}>
-    {item.name}
+   {item.name} — {item.area}
   </option>
 ))}
 </select>
