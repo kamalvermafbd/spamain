@@ -558,6 +558,11 @@ if (value.length === 10) {
      className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary disabled:opacity-60 disabled:cursor-not-allowed"
       
     />
+    {phone.length > 0 && phone.length < 10 && (
+  <p className="text-sm text-red-400">
+    Please enter complete 10 digit mobile number
+  </p>
+)}
 {phone.length === 10 && (
       <>
     <input
