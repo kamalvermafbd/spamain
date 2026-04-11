@@ -36,10 +36,14 @@ const selectedService = serviceOptions.find(
 const [serviceVariants, setServiceVariants] = useState<any[]>([]);
 const [selectedVariant, setSelectedVariant] = useState("");
   const [variantsLoading, setVariantsLoading] = useState(false);
+  const [bookingDate, setBookingDate] = useState("");
+const [bookingTime, setBookingTime] = useState("");
 const selectedVariantData = serviceVariants.find(
   (item) => item.id === selectedVariant
 );
-  
+  const selectedBranchData = branchOptions.find(
+  (item) => item.name === branch
+);
   const handleBookingSelect = (type: "membership" | "service") => {
   setBookingType(type);
   setSelectedOption("");
@@ -354,7 +358,12 @@ if (bookingType === "service") {
 
 <select
   value={branch}
-  onChange={(e) => setBranch(e.target.value)}
+  onChange={(e) => {
+  setBranch(e.target.value);
+  setBookingDate("");
+  setBookingTime("");
+}}
+  
   className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary [&>option]:text-black"
 >
   <option value="">Select Branch</option>
@@ -364,6 +373,31 @@ if (bookingType === "service") {
   </option>
 ))}
 </select>
+
+{bookingType === "service" && selectedVariant && branch && (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <input
+      type="date"
+      min={new Date().toISOString().split("T")[0]}
+      value={bookingDate}
+      onChange={(e) => setBookingDate(e.target.value)}
+      className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
+    />
+
+    <input
+      type="time"
+      value={bookingTime}
+      onChange={(e) => setBookingTime(e.target.value)}
+      min={selectedBranchData?.start_time || "10:00"}
+      max={selectedBranchData?.end_time || "22:00"}
+      className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
+    />
+  </div>
+)}
+
+
+
+
     
     <input
       type="tel"
