@@ -259,23 +259,27 @@ setIsCustomerLoading(true);
       })}
     </select>
 
-    {bookingType === "membership" &&
-      selectedMembership?.features && (
-        <div className="mt-3 flex flex-wrap gap-2">
-         {String(selectedMembership.features)
-  .split(",")
-            .map((feature: string, index: number) => (
-              <span
-                key={index}
-                className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs text-primary"
-              >
-                {feature.trim()}
-              </span>
-            ))}
-        </div>
-      )}
-  </div>
-)}
+ {bookingType === "membership" &&
+  selectedMembership?.features && (
+    <>
+      <p className="mt-3 text-sm text-primary font-medium">
+        ₹{selectedMembership.price} / {selectedMembership.period}
+      </p>
+
+      <div className="mt-3 flex flex-wrap gap-2">
+        {String(selectedMembership.features)
+          .split(",")
+          .map((feature: string, index: number) => (
+            <span
+              key={index}
+              className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs text-primary"
+            >
+              {feature.trim()}
+            </span>
+          ))}
+      </div>
+    </>
+  )}
   
 
 </div>
