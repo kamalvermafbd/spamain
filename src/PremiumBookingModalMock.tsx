@@ -504,7 +504,9 @@ const startTotal = minH * 60 + minM;
   const closeTotal = eH * 60 + eM;
 
   if (selectedTotal < startTotal) {
-    setTimeError(`Branch starts at ${start}`);
+    setTimeError(
+  `Please choose time after ${getMinAllowedTime()}`
+);
     return;
   }
 
