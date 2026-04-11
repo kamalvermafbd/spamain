@@ -26,7 +26,22 @@ const [customerName, setCustomerName] = useState("");
 const [customerEmail, setCustomerEmail] = useState("");
 const [isCustomerLoading, setIsCustomerLoading] = useState(false);  
 const [selectedOption, setSelectedOption] = useState("");
-useEffect(() => {
+
+  
+const [serviceOptions, setServiceOptions] = useState<any[]>([]);
+const [membershipOptions, setMembershipOptions] = useState<any[]>([]);
+  const [branchOptions, setBranchOptions] = useState<any[]>([]);
+const [isOptionsLoading, setIsOptionsLoading] = useState(false);
+const [isDropdownsReady, setIsDropdownsReady] = useState(false);
+const selectedMembership = membershipOptions.find(
+  (item) => item.name === selectedOption
+);  
+const selectedService = serviceOptions.find(
+  (item) => item.title === selectedOption
+);
+const [serviceVariants, setServiceVariants] = useState<any[]>([]);
+
+  useEffect(() => {
   if (defaultBookingType) {
     setBookingType(defaultBookingType);
   }
@@ -47,19 +62,6 @@ useEffect(() => {
   }
 }, [defaultBookingType, defaultSelectedOption, serviceOptions]);
 
-  
-const [serviceOptions, setServiceOptions] = useState<any[]>([]);
-const [membershipOptions, setMembershipOptions] = useState<any[]>([]);
-  const [branchOptions, setBranchOptions] = useState<any[]>([]);
-const [isOptionsLoading, setIsOptionsLoading] = useState(false);
-const [isDropdownsReady, setIsDropdownsReady] = useState(false);
-const selectedMembership = membershipOptions.find(
-  (item) => item.name === selectedOption
-);  
-const selectedService = serviceOptions.find(
-  (item) => item.title === selectedOption
-);
-const [serviceVariants, setServiceVariants] = useState<any[]>([]);
 const [selectedVariant, setSelectedVariant] = useState("");
   const [variantsLoading, setVariantsLoading] = useState(false);
   const [bookingDate, setBookingDate] = useState("");
