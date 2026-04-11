@@ -20,6 +20,15 @@ const [serviceOptions, setServiceOptions] = useState<any[]>([]);
 const [membershipOptions, setMembershipOptions] = useState<any[]>([]);
 const [isOptionsLoading, setIsOptionsLoading] = useState(false);
 
+  const handleBookingSelect = (type: "membership" | "service") => {
+  setBookingType(type);
+  setSelectedOption("");
+  setIsOptionsLoading(true);
+
+  setTimeout(() => {
+    setIsOptionsLoading(false);
+  }, 1200);
+};
   
   useEffect(() => {
   const loadDropdowns = async () => {
@@ -116,11 +125,7 @@ setIsCustomerLoading(true);
             {(!bookingType || bookingType === "membership") && (
               <motion.div
                 layout
-                onClick={() => {
-  setBookingType("membership");
-                  setIsOptionsLoading(true);
-  setSelectedOption("");
-}}
+                onClick={() => handleBookingSelect("membership")}
                 className="cursor-pointer rounded-3xl border border-primary/20 bg-white/5 p-8 hover:border-primary transition-all duration-500"
               >
                 <p className="text-primary uppercase tracking-[0.3em] text-xs mb-4">
@@ -138,11 +143,7 @@ setIsCustomerLoading(true);
             {(!bookingType || bookingType === "service") && (
               <motion.div
                 layout
-               onClick={() => {
-  setBookingType("service");
-  setIsOptionsLoading(true);
-  setSelectedOption("");
-}}
+               onClick={() => handleBookingSelect("service")}
                 className="cursor-pointer rounded-3xl border border-white/10 bg-white/5 p-8 hover:border-primary transition-all duration-500"
               >
                 <p className="text-primary uppercase tracking-[0.3em] text-xs mb-4">
