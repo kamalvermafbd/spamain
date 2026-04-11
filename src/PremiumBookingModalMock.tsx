@@ -48,7 +48,7 @@ const selectedVariantData = serviceVariants.find(
   const selectedBranchData = branchOptions.find(
   (item) => item.name === branch
 );
-console.log("Selected Branch Timing:", selectedBranchData);
+
   const getDurationMinutes = (duration: string) => {
   const match = String(duration).match(/\d+/);
   return match ? Number(match[0]) : 0;
