@@ -26,15 +26,17 @@ const [serviceOptions, setServiceOptions] = useState<any[]>([]);
 const [membershipOptions, setMembershipOptions] = useState<any[]>([]);
   const [branchOptions, setBranchOptions] = useState<any[]>([]);
 const [isOptionsLoading, setIsOptionsLoading] = useState(false);
-
+const [isDropdownsReady, setIsDropdownsReady] = useState(false);
+  
   const handleBookingSelect = (type: "membership" | "service") => {
   setBookingType(type);
   setSelectedOption("");
-  setIsOptionsLoading(true);
+  setPhone("");
+  setCustomerName("");
+  setCustomerEmail("");
 
-  setTimeout(() => {
-    setIsOptionsLoading(false);
-  }, 1200);
+  // show loader only if API data still not ready
+  setIsOptionsLoading(!isDropdownsReady);
 };
   
   useEffect(() => {
@@ -55,6 +57,7 @@ const [isOptionsLoading, setIsOptionsLoading] = useState(false);
     if (branchesRes?.success) {
   setBranchOptions(branchesRes.data || []);
 }
+    setIsDropdownsReady(true);
     setIsOptionsLoading(false);
   };
 
