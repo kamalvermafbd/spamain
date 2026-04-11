@@ -52,6 +52,32 @@ console.log("Selected Branch Timing:", selectedBranchData);
   const match = String(duration).match(/\d+/);
   return match ? Number(match[0]) : 0;
 };
+
+  const getLastAllowedStartTime = () => {
+  if (!selectedBranchData?.end_time) {
+    return undefined;
+  }
+
+  if (!selectedVariantData?.duration) {
+    return selectedBranchData.end_time;
+  }
+
+  const duration = getDurationMinutes(
+    selectedVariantData.duration
+  );
+
+  const [h, m] = selectedBranchData.end_time
+    .split(":")
+    .map(Number);
+
+  const total = h * 60 + m - duration;
+
+  const hh = String(Math.floor(total / 60)).padStart(2, "0");
+  const mm = String(total % 60).padStart(2, "0");
+
+  return `${hh}:${mm}`;
+};
+  
   const handleBookingSelect = (type: "membership" | "service") => {
   setBookingType(type);
   setSelectedOption("");
