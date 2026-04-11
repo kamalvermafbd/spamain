@@ -262,8 +262,8 @@ setIsCustomerLoading(true);
     {bookingType === "membership" &&
       selectedMembership?.features && (
         <div className="mt-3 flex flex-wrap gap-2">
-          {selectedMembership.features
-            .split(",")
+         {String(selectedMembership.features)
+  .split(",")
             .map((feature: string, index: number) => (
               <span
                 key={index}
