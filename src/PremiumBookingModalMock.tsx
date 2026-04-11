@@ -284,7 +284,10 @@ setIsCustomerLoading(true);
 
 </div>
 )}
+</div>
+)}
 
+{bookingType && selectedOption && !isOptionsLoading && (
 {bookingType && selectedOption && !isOptionsLoading && (
   <div className="mt-8 grid grid-cols-1 gap-6">
 
