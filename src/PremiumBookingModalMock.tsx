@@ -151,7 +151,7 @@ const currentMinutes = Math.ceil(rawMinutes / 15) * 15;
 }, []);
 
 
-const handleBookingSubmit = () => {
+const handleBookingSubmit = async () => {
   const todayDate = new Date().toLocaleDateString("en-GB");
 
 const formattedDate =
@@ -213,6 +213,15 @@ if (bookingType === "membership") {
   };
 
   console.log("📦 Final Booking Payload:", payload);
+const res = await apiGet("saveBooking", payload);
+
+console.log("✅ Booking Save Response:", res);
+
+if (res?.success) {
+  alert("Booking submitted successfully");
+}
+
+  
 };
   const fetchCustomerByPhone = async (mobile: string) => {
   if (mobile.length !== 10) return;
@@ -775,10 +784,10 @@ onChange={(e) => setCustomerEmail(e.target.value)}
 </button>
       
       <button
-        onClick={() => {
-          handleBookingSubmit();
-          setShowSummary(false);
-        }}
+        onClick={async () => {
+  await handleBookingSubmit();
+  setShowSummary(false);
+}}
         className="mt-3 w-full rounded-2xl bg-primary px-5 py-4 text-black font-semibold"
       >
         Confirm Booking
