@@ -909,6 +909,7 @@ onChange={(e) => setCustomerEmail(e.target.value)}
           setCustomerName("");
           setCustomerEmail("");
           setBranch(selectedBranch || "");
+           onClose(); // ⭐ main modal close
         }}
         className="mt-6 w-full rounded-2xl bg-primary px-5 py-4 text-black font-semibold"
       >
