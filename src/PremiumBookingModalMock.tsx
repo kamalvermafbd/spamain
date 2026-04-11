@@ -339,6 +339,15 @@ setIsCustomerLoading(true);
             )}
           </div>
 
+{bookingType && (
+  <div className="mt-3 mb-3 flex justify-center">
+    <div className="flex flex-col items-center">
+      <div className="h-10 w-[3px] rounded-full bg-gradient-to-b from-[#f4d03f] to-[#d4af37]" />
+      <div className="-mt-1 h-4 w-4 rotate-45 border-b-[3px] border-r-[3px] border-[#d4af37]" />
+    </div>
+  </div>
+)}
+          
           {/* Change Option */}
           {bookingType && (
             <div className="mt-6 flex justify-center">
@@ -348,21 +357,14 @@ setIsCustomerLoading(true);
   setSelectedOption("");
   setIsOptionsLoading(false);
 }}
-                className="text-primary text-sm tracking-[0.2em] uppercase hover:text-white transition"
+                className="rounded-full border border-primary/50 bg-primary/10 px-5 py-2 text-xs uppercase tracking-[0.25em] text-primary hover:bg-primary/20 hover:text-white transition-all duration-300"
               >
                 Change Option
               </button>
             </div>
           )}
 
-{bookingType && (
-  <div className="mt-3 mb-3 flex justify-center">
-    <div className="flex flex-col items-center">
-      <div className="h-10 w-[3px] rounded-full bg-gradient-to-b from-[#f4d03f] to-[#d4af37]" />
-      <div className="-mt-1 h-4 w-4 rotate-45 border-b-[3px] border-r-[3px] border-[#d4af37]" />
-    </div>
-  </div>
-)}
+
 
           
           {/* Selected Summary */}
