@@ -526,7 +526,11 @@ if (bookingType === "service") {
           </option>
         ))}
       </select>
-
+{!selectedVariant && !variantsLoading && (
+  <p className="text-sm text-[#d4af37] text-left pl-1 tracking-wide">
+    Please select your preferred duration type to continue.
+  </p>
+)}
       {selectedVariantData && (
         <p className="text-sm text-primary font-medium">
           ₹{selectedVariantData.charges}
