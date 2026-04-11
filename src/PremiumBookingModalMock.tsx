@@ -411,16 +411,26 @@ if (bookingType === "service") {
 ))}
 </select>
 
+const minDate = new Date(
+  Date.now() - new Date().getTimezoneOffset() * 60000
+)
+  .toISOString()
+  .split("T")[0];
+    
 {bookingType === "service" && selectedVariant && branch && (
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
     <input
       type="date"
-      min={new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-  .toISOString()
-  .split("T")[0]}
+     min={minDate}
       value={bookingDate}
   onChange={(e) => {
   const value = e.target.value;
+    if (value < minDate) {
+    setTimeError("Past date booking is not allowed");
+    setBookingDate("");
+    setBookingTime("");
+    return;
+  }
   setBookingDate(value);   // ye main fix hai
   setBookingTime("");
   setTimeError("");
