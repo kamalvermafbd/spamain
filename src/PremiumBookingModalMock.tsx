@@ -609,10 +609,15 @@ onChange={(e) => setCustomerEmail(e.target.value)}
     />
 
 <button
+  disabled={
+    isCustomerLoading ||
+    !customerName.trim() ||
+    !customerEmail.trim()
+  }
   onClick={() => setShowSummary(true)}
-  className="w-full rounded-2xl bg-primary px-5 py-4 text-black font-semibold hover:opacity-90 transition"
+  className="w-full rounded-2xl bg-primary px-5 py-4 text-black font-semibold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
 >
-  Book Now
+  {isCustomerLoading ? "Fetching Customer..." : "Book Now"}
 </button>
         
       </>
