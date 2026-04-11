@@ -262,7 +262,7 @@ setIsCustomerLoading(true);
           initial={{ scale: 0.96, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.96, opacity: 0 }}
-          className="w-full max-w-5xl max-h-[90vh] overflow-y-auto premium-scrollbar rounded-3xl border-2 border-primary/40 bg-[#111] p-8 md:p-10 shadow-[0_0_40px_rgba(212,175,55,0.10)]"
+          className="w-full max-w-5xl max-h-[90vh] overflow-y-auto premium-scrollbar rounded-3xl border-2 border-[#7a6220] bg-[#111] p-8 md:p-10 shadow-[0_0_40px_rgba(212,175,55,0.10)]"
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-10">
