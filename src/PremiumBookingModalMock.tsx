@@ -27,7 +27,9 @@ const [membershipOptions, setMembershipOptions] = useState<any[]>([]);
   const [branchOptions, setBranchOptions] = useState<any[]>([]);
 const [isOptionsLoading, setIsOptionsLoading] = useState(false);
 const [isDropdownsReady, setIsDropdownsReady] = useState(false);
-  
+const selectedMembership = membershipOptions.find(
+  (item) => item.name === selectedOption
+);  
   const handleBookingSelect = (type: "membership" | "service") => {
   setBookingType(type);
   setSelectedOption("");
@@ -250,6 +252,25 @@ setIsCustomerLoading(true);
   );
 })}
   </select>
+
+{bookingType === "membership" &&
+  selectedMembership?.features ? (
+    <div className="mt-3 flex flex-wrap gap-2">
+      {selectedMembership.features
+        .split(",")
+        .map((feature: string, index: number) => (
+          <span
+            key={index}
+            className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs text-primary"
+          >
+            {feature.trim()}
+          </span>
+        ))}
+    </div>
+  ) : null}
+
+
+  
 )}
             </div>
           )}
