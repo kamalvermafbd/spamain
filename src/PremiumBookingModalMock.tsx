@@ -296,7 +296,7 @@ setIsCustomerLoading(true);
 
 
           {bookingType && (
-            <div className="mt-6 flex justify-center">
+            <div className="mt-6 mb-6 flex justify-center">
               <button
                 onClick={() => {
   setBookingType(null);
@@ -357,7 +357,7 @@ setIsCustomerLoading(true);
           </div>
 
 {bookingType && (
-  <div className="mt-3 mb-3 flex justify-center">
+  <div className="mt-4 mb-4 flex justify-start pl-[250px]">
     <div className="flex flex-col items-center">
       <div className="h-10 w-[3px] rounded-full bg-gradient-to-b from-[#f4d03f] to-[#d4af37]" />
       <div className="-mt-1 h-4 w-4 rotate-45 border-b-[3px] border-r-[3px] border-[#d4af37]" />
