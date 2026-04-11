@@ -637,7 +637,16 @@ onChange={(e) => setCustomerEmail(e.target.value)}
       <div className="space-y-2 text-sm text-white/80">
         <p>Service: {selectedOption}</p>
         <p>Branch: {branch}</p>
-        <p>Date: {bookingDate}</p>
+        <p>
+  Date:{" "}
+  {bookingDate
+    ? new Date(bookingDate).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+    : ""}
+</p>
         <p>Time: {bookingTime}</p>
         <p>Name: {customerName}</p>
         <p>Phone: {phone}</p>
@@ -651,7 +660,7 @@ onChange={(e) => setCustomerEmail(e.target.value)}
 </p>
       </div>
 
-      <p className="mt-4 text-xs text-white/60">
+      <p className="mt-5 text-sm text-primary font-medium">
         Payment will be collected at the spa after booking confirmation.
       </p>
 
