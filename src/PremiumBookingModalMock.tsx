@@ -83,6 +83,32 @@ const minDate = new Date(
 )
   .toISOString()
   .split("T")[0];
+
+const getMinAllowedTime = () => {
+  if (!selectedBranchData?.start_time) return undefined;
+
+  // if selected date is not today → normal branch start time
+  if (bookingDate !== minDate) {
+    return selectedBranchData.start_time;
+  }
+
+  const now = new Date();
+  const rawMinutes = now.getHours() * 60 + now.getMinutes();
+const currentMinutes = Math.ceil(rawMinutes / 15) * 15;
+
+  const [branchH, branchM] = selectedBranchData.start_time
+    .split(":")
+    .map(Number);
+
+  const branchMinutes = branchH * 60 + branchM;
+
+  const finalMinutes = Math.max(currentMinutes, branchMinutes);
+
+  const hh = String(Math.floor(finalMinutes / 60)).padStart(2, "0");
+  const mm = String(finalMinutes % 60).padStart(2, "0");
+
+  return `${hh}:${mm}`;
+};
   
   const handleBookingSelect = (type: "membership" | "service") => {
   setBookingType(type);
@@ -447,7 +473,7 @@ if (bookingType === "service") {
     <input
   type="time"
   value={bookingTime}
-  min={selectedBranchData?.start_time}
+  min={getMinAllowedTime()}
   max={getLastAllowedStartTime()}
 onChange={(e) => {
   const value = e.target.value;
