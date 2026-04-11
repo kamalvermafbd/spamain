@@ -418,7 +418,6 @@ if (bookingType === "service") {
       min={new Date().toISOString().split("T")[0]}
       value={bookingDate}
   onChange={(e) => {
-  setBranch(e.target.value);
   setBookingDate("");
   setBookingTime("");
   setTimeError("");
