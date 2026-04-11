@@ -742,11 +742,13 @@ onChange={(e) => setCustomerEmail(e.target.value)}
     
   </div>
 
+  {bookingType === "service" && (
   <div className="flex">
     <span className="w-20 text-white/70">Time</span>
     <span className="w-4 text-white/70">:</span>
     <span>{bookingTime}</span>
   </div>
+)}
 
   <div className="flex pt-2">
     <span className="w-20 text-primary font-semibold">Amount</span>
