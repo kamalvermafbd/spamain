@@ -634,7 +634,7 @@ onChange={(e) => setCustomerEmail(e.target.value)}
 )}
 {showSummary && (
   <div className="fixed inset-0 z-[120] bg-black/80 flex items-center justify-center p-6">
-    <div className="w-full max-w-lg rounded-3xl border border-primary/20 bg-[#111] p-6">
+    <div className="w-full max-w-lg rounded-3xl border-2 border-primary/50 bg-[#111] p-6 shadow-[0_0_30px_rgba(212,175,55,0.15)]">
       <h3 className="text-2xl text-white font-headline mb-4">
         Confirm Your Booking
       </h3>
