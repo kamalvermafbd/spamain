@@ -5,12 +5,18 @@ import { X } from "lucide-react";
 
 export default function PremiumBookingModalMock({
   onClose,
+  selectedBranch,
 }: {
   onClose: () => void;
+  selectedBranch?: string;
 }) {
   const [bookingType, setBookingType] = useState<
     "membership" | "service" | null
   >(null);
+  const [branch, setBranch] = useState(selectedBranch || "");
+  useEffect(() => {
+  setBranch(selectedBranch || "");
+}, [selectedBranch]);
 const [phone, setPhone] = useState("");
 const [customerName, setCustomerName] = useState("");
 const [customerEmail, setCustomerEmail] = useState("");
@@ -242,6 +248,17 @@ setIsCustomerLoading(true);
 
 {bookingType && selectedOption && !isOptionsLoading && (
   <div className="mt-8 grid grid-cols-1 gap-6">
+
+<select
+  value={branch}
+  onChange={(e) => setBranch(e.target.value)}
+  className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary [&>option]:text-black"
+>
+  <option value="">Select Branch</option>
+  <option value="Faridabad Sector 15">Faridabad Sector 15</option>
+  <option value="Faridabad NIT">Faridabad NIT</option>
+</select>
+    
     <input
       type="tel"
       inputMode="numeric"
