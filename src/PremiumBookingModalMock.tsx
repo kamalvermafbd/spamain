@@ -642,9 +642,20 @@ onChange={(e) => setCustomerEmail(e.target.value)}
       <div className="space-y-4 text-sm text-white/80">
   <div className="space-y-2 border-b border-white/10 pb-4">
     <p className="text-white font-medium">Customer Details</p>
-    <p>Name: {customerName}</p>
-    <p>Phone: {phone}</p>
-    <p>Email: {customerEmail}</p>
+    <div className="space-y-2">
+  <div className="flex">
+    <span className="w-24 text-white/70">Name:</span>
+    <span>{customerName}</span>
+  </div>
+  <div className="flex">
+    <span className="w-24 text-white/70">Phone:</span>
+    <span>{phone}</span>
+  </div>
+  <div className="flex">
+    <span className="w-24 text-white/70">Email:</span>
+    <span>{customerEmail}</span>
+  </div>
+</div>
   </div>
 
   <div className="space-y-2 pt-2">
