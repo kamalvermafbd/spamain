@@ -152,27 +152,47 @@ const currentMinutes = Math.ceil(rawMinutes / 15) * 15;
 
 
 const handleBookingSubmit = () => {
+  const formattedDate = bookingDate
+    ? new Date(bookingDate).toLocaleDateString("en-GB")
+    : "";
+
   const payload = {
-    bookingType,
-    selectedOption,
-    selectedVariant,
-    branch,
-    bookingDate,
-    bookingTime,
+    name: customerName,
     phone,
-    customerName,
-    customerEmail,
-    amount:
+    date: formattedDate,
+    time: bookingTime || "",
+    service: selectedOption,
+    Duration:
+      bookingType === "service"
+        ? selectedVariantData?.duration || selectedVariant
+        : selectedMembership?.period || "",
+    variant: selectedVariant || "1a",
+    period:
+      bookingType === "service"
+        ? "1 day"
+        : selectedMembership?.period || "",
+    branch,
+    startdate: formattedDate,
+    enddate: formattedDate,
+    message:
+      bookingType === "service"
+        ? "plan selected"
+        : "membership selected",
+    consent: "Yes",
+    timestamp: new Date().toLocaleString("en-GB"),
+    status: "Pending",
+    email: customerEmail,
+    charges:
       bookingType === "service"
         ? selectedVariantData?.charges
-        : selectedMembership?.price,
-    paymentMode: "pay_at_spa",
-    paymentStatus: "pending",
+        : selectedMembership?.price || 0,
+    paymentMode: "Cash",
+    bookingType:
+      bookingType === "service" ? "Single" : "membership",
   };
 
-  console.log("BOOKING PAYLOAD:", payload);
+  console.log("📦 Final Booking Payload:", payload);
 };
-  
   const fetchCustomerByPhone = async (mobile: string) => {
   if (mobile.length !== 10) return;
 setIsCustomerLoading(true);
