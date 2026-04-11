@@ -613,6 +613,7 @@ useEffect(() => {
     selectedBranch={localStorage.getItem("selectedBranch") || ""}
     defaultBookingType="service"
     defaultSelectedOption={selectedService}
+   onServiceReady={() => setIsPreparingBooking(false)}
   />
 )}
    
