@@ -193,7 +193,9 @@ setIsCustomerLoading(true);
 
           {/* Selected Summary */}
           
-          {bookingType && (
+          
+          
+{bookingType && (
             <div className="mt-10 rounded-2xl border border-primary/20 bg-primary/5 p-6 text-center">
               <p className="text-primary uppercase tracking-[0.3em] text-xs mb-2">
                 Selected Flow
@@ -203,25 +205,27 @@ setIsCustomerLoading(true);
                   ? "Membership Booking Selected"
                   : "Single Service Booking Selected"}
               </h4>
-{isOptionsLoading ? (
+
+
+{isOptionsLoading && (
   <div className="mt-8 rounded-3xl border-2 border-primary/60 bg-gradient-to-br from-primary/10 to-black/40 px-8 py-8 text-center shadow-[0_0_30px_rgba(212,175,55,0.12)] animate-pulse">
-  <p className="text-primary text-xs uppercase tracking-[0.4em] mb-3 font-semibold">
-    Preparing Your Experience
-  </p>
-  <h5 className="text-2xl font-headline text-white mb-3">
-    {bookingType === "membership"
-      ? "Preparing Your Membership Experiences"
-      : "Preparing Your Service Menu"}
-  </h5>
-  <p className="text-white/80 leading-relaxed max-w-xl mx-auto">
-    {bookingType === "membership"
-      ? "Our wellness concierge is curating the most suitable plans for your selection."
-      : "Our curated rituals are being arranged for your selection."}
-  </p>
-</div>
+    <p className="text-primary text-xs uppercase tracking-[0.4em] mb-3 font-semibold">
+      Preparing Your Experience
+    </p>
+    <h5 className="text-2xl font-headline text-white mb-3">
+      {bookingType === "membership"
+        ? "Preparing Your Membership Experiences"
+        : "Preparing Your Service Menu"}
+    </h5>
+    <p className="text-white/80 leading-relaxed max-w-xl mx-auto">
+      {bookingType === "membership"
+        ? "Our wellness concierge is curating the most suitable plans for your selection."
+        : "Our curated rituals are being arranged for your selection."}
+    </p>
+  </div>
+)}
 
-
-  ) : (
+{!isOptionsLoading && (
   <div className="mt-6">
     <select
       value={selectedOption}
@@ -270,14 +274,12 @@ setIsCustomerLoading(true);
             ))}
         </div>
       )}
- </div>
+  </div>
 )}
-
-
   
+
+</div>
 )}
-            </div>
-          )}
 
 {bookingType && selectedOption && !isOptionsLoading && (
   <div className="mt-8 grid grid-cols-1 gap-6">
