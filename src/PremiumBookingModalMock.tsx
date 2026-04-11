@@ -417,10 +417,19 @@ if (bookingType === "service") {
       type="date"
       min={new Date().toISOString().split("T")[0]}
       value={bookingDate}
-      onChange={(e) => setBookingDate(e.target.value)}
+  onChange={(e) => {
+  setBranch(e.target.value);
+  setBookingDate("");
+  setBookingTime("");
+  setTimeError("");
+  setPhone("");
+  setCustomerName("");
+  setCustomerEmail("");
+}}
       className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
     />
-
+{bookingDate && (
+  <>
     <input
   type="time"
   value={bookingTime}
@@ -473,7 +482,8 @@ onChange={(e) => {
     {selectedBranchData?.end_time}
   </p>
 )}
-
+  </>
+)}
  </div>
 )}
 
