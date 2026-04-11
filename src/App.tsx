@@ -516,6 +516,8 @@ const HomeSignaturePreview = () => (
 
 const ServicesTreatmentGrid = ({ services = [] }: { services?: any[] }) => {
   const [spaServices, setSpaServices] = useState(services);
+ const [bookingModalOpen, setBookingModalOpen] = useState(false);
+const [selectedService, setSelectedService] = useState("");
 useEffect(() => {
   setSpaServices(services);
 }, [services]);
@@ -571,7 +573,12 @@ useEffect(() => {
       <p className="text-on-surface-variant text-sm font-body leading-relaxed mb-8">
         {item.desc}
       </p>
-      <button className="w-full py-4 bg-primary/10 text-primary rounded-full font-body font-bold uppercase text-[10px] tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-500">
+      <button 
+        onClick={() => {
+    setSelectedService(item.title);
+    setBookingModalOpen(true);
+  }}
+       className="w-full py-4 bg-primary/10 text-primary rounded-full font-body font-bold uppercase text-[10px] tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-500">
         Book Ritual
       </button>
     </div>
@@ -579,6 +586,16 @@ useEffect(() => {
 ))}
       </div>
     </div>
+
+{bookingModalOpen && (
+  <PremiumBookingModalMock
+    onClose={() => setBookingModalOpen(false)}
+    selectedBranch={localStorage.getItem("selectedBranch") || ""}
+    defaultBookingType="service"
+    defaultSelectedOption={selectedService}
+  />
+)}
+   
   </section>
 );
 };
