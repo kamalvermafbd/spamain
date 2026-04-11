@@ -35,6 +35,7 @@ const selectedService = serviceOptions.find(
 );
 const [serviceVariants, setServiceVariants] = useState<any[]>([]);
 const [selectedVariant, setSelectedVariant] = useState("");
+  const [variantsLoading, setVariantsLoading] = useState(false);
 const selectedVariantData = serviceVariants.find(
   (item) => item.id === selectedVariant
 );
@@ -246,10 +247,17 @@ if (bookingType === "service") {
   const selected = serviceOptions.find((s) => s.title === value);
 
   if (selected?.no) {
-    apiGet("getServiceVariants", { no: selected.no }).then((res) => {
-      setServiceVariants(res?.data || []);
-      setSelectedVariant("");
-    });
+    setVariantsLoading(true);
+    setSelectedVariant("");
+    setServiceVariants([]);
+
+    apiGet("getServiceVariants", { no: selected.no })
+      .then((res) => {
+        setServiceVariants(res?.data || []);
+      })
+      .finally(() => {
+        setVariantsLoading(false);
+      });
   }
 }
     if (!value) {
@@ -302,27 +310,32 @@ if (bookingType === "service") {
   )}
 
 
-{bookingType === "service" && serviceVariants.length > 0 && (
-  <div className="mt-4 space-y-3">
-    <select
-      value={selectedVariant}
-      onChange={(e) => setSelectedVariant(e.target.value)}
-      className="w-full rounded-2xl border border-primary/20 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary [&>option]:text-black"
-    >
-      <option value="">Select Duration</option>
-      {serviceVariants.map((variant) => (
-        <option key={variant.id} value={variant.id}>
-          {variant.duration}
+{bookingType === "service" &&
+  (variantsLoading || serviceVariants.length > 0) && (
+    <div className="mt-4 space-y-3">
+      <select
+        value={selectedVariant}
+        onChange={(e) => setSelectedVariant(e.target.value)}
+        disabled={variantsLoading}
+        className="w-full rounded-2xl border border-primary/20 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary [&>option]:text-black disabled:opacity-70"
+      >
+        <option value="">
+          {variantsLoading ? "Loading durations..." : "Select Duration"}
         </option>
-      ))}
-    </select>
 
-    {selectedVariantData && (
-      <p className="text-sm text-primary font-medium">
-        ₹{selectedVariantData.charges}
-      </p>
-    )}
-  </div>
+        {serviceVariants.map((variant) => (
+          <option key={variant.id} value={variant.id}>
+            {variant.duration}
+          </option>
+        ))}
+      </select>
+
+      {selectedVariantData && (
+        <p className="text-sm text-primary font-medium">
+          ₹{selectedVariantData.charges}
+        </p>
+      )}
+    </div>
 )}
 
 
