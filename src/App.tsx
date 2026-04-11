@@ -130,6 +130,7 @@ const [bookingModalOpen, setBookingModalOpen] = useState(false);
 };
 
 const HomeHero = () => {
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
   useEffect(() => {
     const savedLocation = localStorage.getItem("userLocation");
 
@@ -167,7 +168,7 @@ const HomeHero = () => {
   }, []);
 
   return (
-  
+  <>
   <header className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
     <div className="absolute inset-0 z-0 overflow-hidden">
   <video
@@ -201,7 +202,9 @@ const HomeHero = () => {
           Step into a world where time dissolves. Relax, rejuvenate, and restore yourself with premium wellness experiences curated for the cinematic soul.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <button className="w-full sm:w-auto bg-primary hover:bg-primary-container text-on-primary px-10 py-4 rounded-full font-body font-extrabold uppercase tracking-widest shadow-2xl shadow-primary/20 hover:scale-105 transition-all duration-500">
+          <button 
+           onClick={() => setBookingModalOpen(true)}
+           className="w-full sm:w-auto bg-primary hover:bg-primary-container text-on-primary px-10 py-4 rounded-full font-body font-extrabold uppercase tracking-widest shadow-2xl shadow-primary/20 hover:scale-105 transition-all duration-500">
             Book Appointment
           </button>
           <button className="w-full sm:w-auto flex items-center justify-center gap-3 border border-outline-variant/40 text-on-surface px-10 py-4 rounded-full font-body font-bold uppercase tracking-widest hover:bg-surface-container-high transition-all duration-500 backdrop-blur-md group">
@@ -220,8 +223,17 @@ const HomeHero = () => {
       <ChevronsDown className="w-8 h-8 text-primary" />
     </motion.div>
   </header>
-);
+
+   {bookingModalOpen && (
+  <PremiumBookingModalMock
+    onClose={() => setBookingModalOpen(false)}
+    selectedBranch={localStorage.getItem("selectedBranch") || ""}
+  />
+)}
+ </>
+  );
 };
+  
 const ServicesHero = () => (
   <header className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden pt-20">
     <div className="absolute inset-0 z-0">
