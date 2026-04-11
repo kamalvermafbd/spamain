@@ -418,7 +418,8 @@ if (bookingType === "service") {
       min={new Date().toISOString().split("T")[0]}
       value={bookingDate}
   onChange={(e) => {
-  setBookingDate("");
+  const value = e.target.value;
+  setBookingDate(value);   // ye main fix hai
   setBookingTime("");
   setTimeError("");
   setPhone("");
