@@ -33,8 +33,19 @@ useEffect(() => {
 
   if (defaultSelectedOption) {
     setSelectedOption(defaultSelectedOption);
+
+    const selected = serviceOptions.find(
+      (s) => s.title === defaultSelectedOption
+    );
+
+    if (selected?.no) {
+      apiGet("getServiceVariants", { no: selected.no }).then((res) => {
+        setServiceVariants(res?.data || []);
+        setSelectedVariant("");
+      });
+    }
   }
-}, [defaultBookingType, defaultSelectedOption]);
+}, [defaultBookingType, defaultSelectedOption, serviceOptions]);
 
   
 const [serviceOptions, setServiceOptions] = useState<any[]>([]);
