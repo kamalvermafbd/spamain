@@ -8,11 +8,13 @@ export default function PremiumBookingModalMock({
   selectedBranch,
   defaultBookingType,
   defaultSelectedOption,
+  onServiceReady,
 }: {
   onClose: () => void;
   selectedBranch?: string;
   defaultBookingType?: "membership" | "service";
   defaultSelectedOption?: string;
+  onServiceReady?: () => void;
 }) {
   const [bookingType, setBookingType] = useState<
     "membership" | "service" | null
@@ -261,6 +263,8 @@ if (res?.success) {
   const fetchCustomerByPhone = async (mobile: string) => {
   if (mobile.length !== 10) return;
 setIsCustomerLoading(true);
+
+    
   try {
     const res = await apiGet("getCustomerByPhone", {
       phone: mobile,
@@ -276,6 +280,24 @@ setIsCustomerLoading(true);
   setIsCustomerLoading(false);
 }
 };
+
+  useEffect(() => {
+  if (
+    bookingType === "service" &&
+    defaultSelectedOption &&
+    serviceVariants.length > 0 &&
+    !variantsLoading &&
+    !selectedVariant
+  ) {
+    onServiceReady?.();
+  }
+}, [
+  bookingType,
+  defaultSelectedOption,
+  serviceVariants,
+  variantsLoading,
+  selectedVariant,
+]);
   
   return (
     <AnimatePresence>
