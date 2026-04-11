@@ -39,6 +39,7 @@ const [selectedVariant, setSelectedVariant] = useState("");
   const [bookingDate, setBookingDate] = useState("");
 const [bookingTime, setBookingTime] = useState("");
 const [timeError, setTimeError] = useState("");
+  const [showSummary, setShowSummary] = useState(false);
 
   
 const selectedVariantData = serviceVariants.find(
@@ -148,6 +149,29 @@ const currentMinutes = Math.ceil(rawMinutes / 15) * 15;
 
  loadDropdowns();
 }, []);
+
+
+const handleBookingSubmit = () => {
+  const payload = {
+    bookingType,
+    selectedOption,
+    selectedVariant,
+    branch,
+    bookingDate,
+    bookingTime,
+    phone,
+    customerName,
+    customerEmail,
+    amount:
+      bookingType === "service"
+        ? selectedVariantData?.charges
+        : selectedMembership?.price,
+    paymentMode: "pay_at_spa",
+    paymentStatus: "pending",
+  };
+
+  console.log("BOOKING PAYLOAD:", payload);
+};
   
   const fetchCustomerByPhone = async (mobile: string) => {
   if (mobile.length !== 10) return;
@@ -534,6 +558,7 @@ const startTotal = minH * 60 + minM;
 )}
 
     {(bookingType !== "service" || (bookingTime && !timeError)) && (
+  
   <>
     <input
       type="tel"
@@ -582,13 +607,66 @@ placeholder={isCustomerLoading ? "Fetching email..." : "Email Address"}
 onChange={(e) => setCustomerEmail(e.target.value)}
       className="md:col-span-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
     />
+
+<button
+  onClick={() => setShowSummary(true)}
+  className="w-full rounded-2xl bg-primary px-5 py-4 text-black font-semibold hover:opacity-90 transition"
+>
+  Book Now
+</button>
+        
       </>
   )}
+
+
+
+
+
+    
   </>
   )}
       </div>
 )}
+{showSummary && (
+  <div className="fixed inset-0 z-[120] bg-black/80 flex items-center justify-center p-6">
+    <div className="w-full max-w-lg rounded-3xl border border-primary/20 bg-[#111] p-6">
+      <h3 className="text-2xl text-white font-headline mb-4">
+        Confirm Your Booking
+      </h3>
 
+      <div className="space-y-2 text-sm text-white/80">
+        <p>Service: {selectedOption}</p>
+        <p>Branch: {branch}</p>
+        <p>Date: {bookingDate}</p>
+        <p>Time: {bookingTime}</p>
+        <p>Name: {customerName}</p>
+        <p>Phone: {phone}</p>
+        <p>Email: {customerEmail}</p>
+
+        <p>
+  Amount: ₹
+  {bookingType === "service"
+    ? selectedVariantData?.charges
+    : selectedMembership?.price}
+</p>
+      </div>
+
+      <p className="mt-4 text-xs text-white/60">
+        Payment will be collected at the spa after booking confirmation.
+      </p>
+
+      <button
+        onClick={() => {
+          handleBookingSubmit();
+          setShowSummary(false);
+        }}
+        className="mt-5 w-full rounded-2xl bg-primary px-5 py-4 text-black font-semibold"
+      >
+        Confirm Booking
+      </button>
+    </div>
+  </div>
+)}
         </motion.div>
       </motion.div>
     </AnimatePresence>
