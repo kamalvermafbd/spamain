@@ -496,7 +496,11 @@ onChange={(e) => {
   const [eH, eM] = end.split(":").map(Number);
 
   const selectedTotal = h * 60 + m;
-  const startTotal = sH * 60 + sM;
+const [minH, minM] = (getMinAllowedTime() || start)
+  .split(":")
+  .map(Number);
+
+const startTotal = minH * 60 + minM;
   const closeTotal = eH * 60 + eM;
 
   if (selectedTotal < startTotal) {
