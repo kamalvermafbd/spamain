@@ -40,7 +40,9 @@ const [selectedVariant, setSelectedVariant] = useState("");
 const [bookingTime, setBookingTime] = useState("");
 const [timeError, setTimeError] = useState("");
   const [showSummary, setShowSummary] = useState(false);
-
+const [isSubmittingBooking, setIsSubmittingBooking] = useState(false);
+const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+const [lastBookingPayload, setLastBookingPayload] = useState<any>(null);
   
 const selectedVariantData = serviceVariants.find(
   (item) => item.id === selectedVariant
@@ -152,6 +154,9 @@ const currentMinutes = Math.ceil(rawMinutes / 15) * 15;
 
 
 const handleBookingSubmit = async () => {
+  setIsSubmittingBooking(true);
+
+  try {
   const todayDate = new Date().toLocaleDateString("en-GB");
 
 const formattedDate =
@@ -218,10 +223,12 @@ const res = await apiGet("saveBooking", payload);
 console.log("✅ Booking Save Response:", res);
 
 if (res?.success) {
-  alert("Booking submitted successfully");
+  setLastBookingPayload(payload);
+  setShowSuccessDialog(true);
 }
-
-  
+    } finally {
+    setIsSubmittingBooking(false);
+  }
 };
   const fetchCustomerByPhone = async (mobile: string) => {
   if (mobile.length !== 10) return;
@@ -784,17 +791,60 @@ onChange={(e) => setCustomerEmail(e.target.value)}
 </button>
       
       <button
-        onClick={async () => {
-  await handleBookingSubmit();
-  setShowSummary(false);
-}}
+  disabled={isSubmittingBooking}
+  onClick={async () => {
+    await handleBookingSubmit();
+    setShowSummary(false);
+  }}
         className="mt-3 w-full rounded-2xl bg-primary px-5 py-4 text-black font-semibold"
       >
-        Confirm Booking
+      {isSubmittingBooking ? "Securing Your Booking..." : "Confirm Booking"}
       </button>
     </div>
   </div>
 )}
+
+{showSuccessDialog && lastBookingPayload && (
+  <div className="fixed inset-0 z-[130] bg-black/85 flex items-center justify-center p-6">
+    <div className="w-full max-w-lg rounded-3xl border-2 border-primary/50 bg-[#111] p-6 shadow-[0_0_30px_rgba(212,175,55,0.15)]">
+      <h3 className="text-2xl text-white font-headline mb-4">
+        Your Booking Has Been Received
+      </h3>
+
+      <p className="text-sm text-white/70 mb-5">
+        Thank you for choosing us. Your booking request has been successfully posted.
+        Our concierge team will contact and update you shortly.
+      </p>
+
+      <div className="space-y-2 text-sm text-white/80">
+        <p><span className="text-white/60">Name:</span> {lastBookingPayload.name}</p>
+        <p><span className="text-white/60">Service:</span> {lastBookingPayload.service}</p>
+        <p><span className="text-white/60">Branch:</span> {lastBookingPayload.branch}</p>
+        <p><span className="text-white/60">Date:</span> {lastBookingPayload.startdate}</p>
+      </div>
+
+      <button
+        onClick={() => {
+          setShowSuccessDialog(false);
+           setLastBookingPayload(null);
+          setBookingType(null);
+          setSelectedOption("");
+          setSelectedVariant("");
+          setBookingDate("");
+          setBookingTime("");
+          setPhone("");
+          setCustomerName("");
+          setCustomerEmail("");
+          setBranch(selectedBranch || "");
+        }}
+        className="mt-6 w-full rounded-2xl bg-primary px-5 py-4 text-black font-semibold"
+      >
+        Done
+      </button>
+    </div>
+  </div>
+)}
+          
         </motion.div>
       </motion.div>
     </AnimatePresence>
