@@ -6,9 +6,13 @@ import { X } from "lucide-react";
 export default function PremiumBookingModalMock({
   onClose,
   selectedBranch,
+  defaultBookingType,
+  defaultSelectedOption,
 }: {
   onClose: () => void;
   selectedBranch?: string;
+  defaultBookingType?: "membership" | "service";
+  defaultSelectedOption?: string;
 }) {
   const [bookingType, setBookingType] = useState<
     "membership" | "service" | null
@@ -22,6 +26,17 @@ const [customerName, setCustomerName] = useState("");
 const [customerEmail, setCustomerEmail] = useState("");
 const [isCustomerLoading, setIsCustomerLoading] = useState(false);  
 const [selectedOption, setSelectedOption] = useState("");
+useEffect(() => {
+  if (defaultBookingType) {
+    setBookingType(defaultBookingType);
+  }
+
+  if (defaultSelectedOption) {
+    setSelectedOption(defaultSelectedOption);
+  }
+}, [defaultBookingType, defaultSelectedOption]);
+
+  
 const [serviceOptions, setServiceOptions] = useState<any[]>([]);
 const [membershipOptions, setMembershipOptions] = useState<any[]>([]);
   const [branchOptions, setBranchOptions] = useState<any[]>([]);
