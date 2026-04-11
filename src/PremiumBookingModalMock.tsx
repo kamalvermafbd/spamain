@@ -30,6 +30,15 @@ const [isDropdownsReady, setIsDropdownsReady] = useState(false);
 const selectedMembership = membershipOptions.find(
   (item) => item.name === selectedOption
 );  
+const selectedService = serviceOptions.find(
+  (item) => item.title === selectedOption
+);
+const [serviceVariants, setServiceVariants] = useState<any[]>([]);
+const [selectedVariant, setSelectedVariant] = useState("");
+const selectedVariantData = serviceVariants.find(
+  (item) => item.id === selectedVariant
+);
+  
   const handleBookingSelect = (type: "membership" | "service") => {
   setBookingType(type);
   setSelectedOption("");
@@ -233,7 +242,17 @@ setIsCustomerLoading(true);
         const value = e.target.value;
         setSelectedOption(value);
 
-        if (!value) {
+if (bookingType === "service") {
+  const selected = serviceOptions.find((s) => s.title === value);
+
+  if (selected?.no) {
+    apiGet("getServiceVariants", { no: selected.no }).then((res) => {
+      setServiceVariants(res?.data || []);
+      setSelectedVariant("");
+    });
+  }
+}
+    if (!value) {
           setPhone("");
           setCustomerName("");
           setCustomerEmail("");
@@ -281,8 +300,33 @@ setIsCustomerLoading(true);
       </div>
     </>
   )}
-  
 
+
+{bookingType === "service" && serviceVariants.length > 0 && (
+  <div className="mt-4 space-y-3">
+    <select
+      value={selectedVariant}
+      onChange={(e) => setSelectedVariant(e.target.value)}
+      className="w-full rounded-2xl border border-primary/20 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary [&>option]:text-black"
+    >
+      <option value="">Select Duration</option>
+      {serviceVariants.map((variant) => (
+        <option key={variant.id} value={variant.id}>
+          {variant.duration}
+        </option>
+      ))}
+    </select>
+
+    {selectedVariantData && (
+      <p className="text-sm text-primary font-medium">
+        ₹{selectedVariantData.charges}
+      </p>
+    )}
+  </div>
+)}
+
+
+    
 </div>
 )}
 </div>
