@@ -219,55 +219,59 @@ setIsCustomerLoading(true);
       : "Our curated rituals are being arranged for your selection."}
   </p>
 </div>
-) : (
-              
-  <select
-    value={selectedOption}
-    onChange={(e) => {
-  const value = e.target.value;
-  setSelectedOption(value);
 
-  if (!value) {
-    setPhone("");
-    setCustomerName("");
-    setCustomerEmail("");
-  }
-}}
-    className="mt-6 w-full rounded-2xl border border-primary/20 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary [&>option]:text-black"
-  >
-    <option value="">Select an option</option>
-    {(bookingType === "membership"
-  ? membershipOptions
-  : serviceOptions
-).map((item, index) => {
-  const label =
-    bookingType === "membership"
-      ? item?.name
-      : item?.title;
 
-  return (
-    <option key={item.id || item.no || index} value={label}>
-      {label}
-    </option>
-  );
-})}
-  </select>
+  ) : (
+  <div className="mt-6">
+    <select
+      value={selectedOption}
+      onChange={(e) => {
+        const value = e.target.value;
+        setSelectedOption(value);
 
-{bookingType === "membership" &&
-  selectedMembership?.features ? (
-    <div className="mt-3 flex flex-wrap gap-2">
-      {selectedMembership.features
-        .split(",")
-        .map((feature: string, index: number) => (
-          <span
-            key={index}
-            className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs text-primary"
-          >
-            {feature.trim()}
-          </span>
-        ))}
-    </div>
-  ) : null}
+        if (!value) {
+          setPhone("");
+          setCustomerName("");
+          setCustomerEmail("");
+        }
+      }}
+      className="w-full rounded-2xl border border-primary/20 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary [&>option]:text-black"
+    >
+      <option value="">Select an option</option>
+      {(bookingType === "membership"
+        ? membershipOptions
+        : serviceOptions
+      ).map((item, index) => {
+        const label =
+          bookingType === "membership"
+            ? item?.name
+            : item?.title;
+
+        return (
+          <option key={item.id || item.no || index} value={label}>
+            {label}
+          </option>
+        );
+      })}
+    </select>
+
+    {bookingType === "membership" &&
+      selectedMembership?.features && (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {selectedMembership.features
+            .split(",")
+            .map((feature: string, index: number) => (
+              <span
+                key={index}
+                className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs text-primary"
+              >
+                {feature.trim()}
+              </span>
+            ))}
+        </div>
+      )}
+ </div>
+)}
 
 
   
