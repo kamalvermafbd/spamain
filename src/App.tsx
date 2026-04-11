@@ -579,12 +579,9 @@ useEffect(() => {
   if (isPreparingBooking) return;
 
   setSelectedService(item.title);
-  setIsPreparingBooking(true);
-
-  setTimeout(() => {
-    setIsPreparingBooking(false);
+  setIsPreparingBooking(true);   
     setBookingModalOpen(true);
-  }, 900);
+ 
 }}
        className="w-full py-4 bg-primary/10 text-primary rounded-full font-body font-bold uppercase text-[10px] tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-500">
         Book Ritual
@@ -609,7 +606,10 @@ useEffect(() => {
 )}
 {bookingModalOpen && (
   <PremiumBookingModalMock
-    onClose={() => setBookingModalOpen(false)}
+    onClose={() => {
+  setBookingModalOpen(false);
+  setIsPreparingBooking(false);
+}}
     selectedBranch={localStorage.getItem("selectedBranch") || ""}
     defaultBookingType="service"
     defaultSelectedOption={selectedService}
