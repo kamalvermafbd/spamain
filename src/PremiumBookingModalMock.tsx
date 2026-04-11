@@ -163,7 +163,11 @@ setIsCustomerLoading(true);
           {bookingType && (
             <div className="mt-6 flex justify-center">
               <button
-                onClick={() => setBookingType(null)}
+                onClick={() => {
+  setBookingType(null);
+  setSelectedOption("");
+  setIsOptionsLoading(false);
+}}
                 className="text-primary text-sm tracking-[0.2em] uppercase hover:text-white transition"
               >
                 Change Option
