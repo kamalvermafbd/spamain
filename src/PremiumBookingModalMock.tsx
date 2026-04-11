@@ -294,6 +294,23 @@ setIsCustomerLoading(true);
             </motion.button>
           </div>
 
+
+          {bookingType && (
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={() => {
+  setBookingType(null);
+  setSelectedOption("");
+  setIsOptionsLoading(false);
+}}
+                className="rounded-full border border-primary/50 bg-primary/10 px-5 py-2 text-xs uppercase tracking-[0.25em] text-primary hover:bg-primary/20 hover:text-white transition-all duration-300"
+              >
+                Change Option
+              </button>
+            </div>
+          )}
+
+          
           {/* Booking Cards */}
           <div
             className={`grid gap-6 ${
@@ -348,21 +365,7 @@ setIsCustomerLoading(true);
   </div>
 )}
           
-          {/* Change Option */}
-          {bookingType && (
-            <div className="mt-6 flex justify-center">
-              <button
-                onClick={() => {
-  setBookingType(null);
-  setSelectedOption("");
-  setIsOptionsLoading(false);
-}}
-                className="rounded-full border border-primary/50 bg-primary/10 px-5 py-2 text-xs uppercase tracking-[0.25em] text-primary hover:bg-primary/20 hover:text-white transition-all duration-300"
-              >
-                Change Option
-              </button>
-            </div>
-          )}
+          
 
 
 
