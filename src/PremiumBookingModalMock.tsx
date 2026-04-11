@@ -477,7 +477,8 @@ onChange={(e) => {
  </div>
 )}
 
-    
+    {(bookingType !== "service" || (bookingTime && !timeError)) && (
+  <>
     <input
       type="tel"
       inputMode="numeric"
@@ -521,6 +522,8 @@ onChange={(e) => setCustomerEmail(e.target.value)}
       className="md:col-span-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
     />
       </>
+  )}
+  </>
   )}
       </div>
 )}
