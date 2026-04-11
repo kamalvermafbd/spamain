@@ -44,6 +44,11 @@ const selectedVariantData = serviceVariants.find(
   const selectedBranchData = branchOptions.find(
   (item) => item.name === branch
 );
+
+  const getDurationMinutes = (duration: string) => {
+  const match = String(duration).match(/\d+/);
+  return match ? Number(match[0]) : 0;
+};
   const handleBookingSelect = (type: "membership" | "service") => {
   setBookingType(type);
   setSelectedOption("");
@@ -387,9 +392,40 @@ if (bookingType === "service") {
     <input
       type="time"
       value={bookingTime}
-      onChange={(e) => setBookingTime(e.target.value)}
-      min={selectedBranchData?.start_time || "10:00"}
-      max={selectedBranchData?.end_time || "22:00"}
+     onChange={(e) => {
+  const value = e.target.value;
+  const start = selectedBranchData?.start_time;
+  const end = selectedBranchData?.end_time;
+
+  if (!start || !end || !selectedVariantData?.duration) {
+    alert("Please select valid branch and duration");
+    return;
+  }
+
+  const durationMins = getDurationMinutes(selectedVariantData.duration);
+
+  const [h, m] = value.split(":").map(Number);
+  const [sH, sM] = start.split(":").map(Number);
+  const [eH, eM] = end.split(":").map(Number);
+
+  const selectedTotal = h * 60 + m;
+  const startTotal = sH * 60 + sM;
+  const closeTotal = eH * 60 + eM;
+
+  if (selectedTotal < startTotal) {
+    setBookingTime("");
+    alert(`Please select time after ${start}`);
+    return;
+  }
+
+  if (selectedTotal + durationMins > closeTotal) {
+    setBookingTime("");
+    alert("This service will exceed branch closing time");
+    return;
+  }
+
+  setBookingTime(value);
+}}
       className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
     />
   </div>
