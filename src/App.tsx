@@ -270,6 +270,7 @@ const ServicesHero = () => (
 
 const BranchFinder = () => {
   const [nearestBranch, setNearestBranch] = useState<any>(null);
+ const [bookingModalOpen, setBookingModalOpen] = useState(false);
     useEffect(() => {
     const loadNearestBranch = async () => {
       try {
@@ -323,7 +324,7 @@ if (!nearestBranch) {
   );
 }
   return (
-  
+ <> 
   <section className="py-24 px-6 bg-surface-container-lowest relative overflow-hidden">
     <div className="max-w-screen-xl mx-auto relative z-10">
       <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6 text-center md:text-left">
@@ -382,7 +383,9 @@ if (!nearestBranch) {
             </div>
           </div>
           <div className="flex flex-wrap gap-4">
-            <button className="flex-grow sm:flex-grow-0 bg-primary text-on-primary px-10 py-4 rounded-full font-body font-bold uppercase text-xs tracking-widest hover:scale-105 transition-transform shadow-xl shadow-primary/20">
+            <button 
+             onClick={() => setBookingModalOpen(true)}
+             className="flex-grow sm:flex-grow-0 bg-primary text-on-primary px-10 py-4 rounded-full font-body font-bold uppercase text-xs tracking-widest hover:scale-105 transition-transform shadow-xl shadow-primary/20">
               Book Now
             </button>
             <button className="flex-grow sm:flex-grow-0 border border-outline-variant/50 text-on-surface px-8 py-4 rounded-full font-body font-bold uppercase text-xs tracking-widest flex items-center justify-center gap-2 hover:bg-surface-container-highest transition-all">
@@ -394,6 +397,13 @@ if (!nearestBranch) {
       </motion.div>
     </div>
   </section>
+   {bookingModalOpen && (
+  <PremiumBookingModalMock
+    onClose={() => setBookingModalOpen(false)}
+    selectedBranch={nearestBranch?.name || ""}
+  />
+)}
+  </>
 );
     };
 
