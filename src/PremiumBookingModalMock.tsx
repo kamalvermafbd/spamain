@@ -293,7 +293,10 @@ if (bookingType === "service") {
         ₹{selectedMembership?.price || 0} /{" "}
         {selectedMembership?.period || "month"}
       </p>
-
+<p className="mt-2 text-xs text-white/60">
+  Starts after confirmation • Valid for{" "}
+  {selectedMembership?.period || "selected duration"}
+</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {String(selectedMembership.features)
           .split(",")
