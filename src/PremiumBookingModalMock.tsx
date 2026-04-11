@@ -639,42 +639,54 @@ onChange={(e) => setCustomerEmail(e.target.value)}
         Confirm Your Booking
       </h3>
 
-      <div className="space-y-2 text-sm text-white/80">
-        <p>Service: {selectedOption}</p>
-        <p>Branch: {branch}</p>
-        <p>
-  Date:{" "}
-  {bookingDate
-    ? new Date(bookingDate).toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      })
-    : ""}
-</p>
-        <p>Time: {bookingTime}</p>
-        <p>Name: {customerName}</p>
-        <p>Phone: {phone}</p>
-        <p>Email: {customerEmail}</p>
+      <div className="space-y-4 text-sm text-white/80">
+  <div className="space-y-2 border-b border-white/10 pb-4">
+    <p className="text-white font-medium">Customer Details</p>
+    <p>Name: {customerName}</p>
+    <p>Phone: {phone}</p>
+    <p>Email: {customerEmail}</p>
+  </div>
 
-        <p>
-  Amount: ₹
-  {bookingType === "service"
-    ? selectedVariantData?.charges
-    : selectedMembership?.price}
-</p>
-      </div>
+  <div className="space-y-2 pt-2">
+    <p className="text-white font-medium">Booking Details</p>
+    <p>Service: {selectedOption}</p>
+    <p>Branch: {branch}</p>
+    <p>
+      Date:{" "}
+      {bookingDate
+        ? new Date(bookingDate).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })
+        : ""}
+    </p>
+    <p>Time: {bookingTime}</p>
+    <p className="text-primary font-semibold pt-2">
+      Amount: ₹
+      {bookingType === "service"
+        ? selectedVariantData?.charges
+        : selectedMembership?.price}
+    </p>
+  </div>
+</div>
 
       <p className="mt-5 text-sm text-primary font-medium">
         Payment will be collected at the spa after booking confirmation.
       </p>
-
+<button
+  onClick={() => setShowSummary(false)}
+  className="mt-4 w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-white hover:border-primary transition"
+>
+  Edit Details
+</button>
+      
       <button
         onClick={() => {
           handleBookingSubmit();
           setShowSummary(false);
         }}
-        className="mt-5 w-full rounded-2xl bg-primary px-5 py-4 text-black font-semibold"
+        className="mt-3 w-full rounded-2xl bg-primary px-5 py-4 text-black font-semibold"
       >
         Confirm Booking
       </button>
