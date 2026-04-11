@@ -663,10 +663,23 @@ onChange={(e) => setCustomerEmail(e.target.value)}
 
   <div className="space-y-2 pt-2">
     <p className="text-white font-medium">Booking Details</p>
-    <p>Service: {selectedOption}</p>
-    <p>Branch: {branch}</p>
-    <p>
-      Date:{" "}
+  <div className="space-y-2">
+  <div className="flex">
+    <span className="w-20 text-white/70">Service</span>
+    <span className="w-4 text-white/70">:</span>
+    <span>{selectedOption}</span>
+  </div>
+
+  <div className="flex">
+    <span className="w-20 text-white/70">Branch</span>
+    <span className="w-4 text-white/70">:</span>
+    <span>{branch}</span>
+  </div>
+
+  <div className="flex">
+    <span className="w-20 text-white/70">Date</span>
+    <span className="w-4 text-white/70">:</span>
+    <span>
       {bookingDate
         ? new Date(bookingDate).toLocaleDateString("en-GB", {
             day: "2-digit",
@@ -674,14 +687,26 @@ onChange={(e) => setCustomerEmail(e.target.value)}
             year: "numeric",
           })
         : ""}
-    </p>
-    <p>Time: {bookingTime}</p>
-    <p className="text-primary font-semibold pt-2">
-      Amount: ₹
+    </span>
+  </div>
+
+  <div className="flex">
+    <span className="w-20 text-white/70">Time</span>
+    <span className="w-4 text-white/70">:</span>
+    <span>{bookingTime}</span>
+  </div>
+
+  <div className="flex pt-2">
+    <span className="w-20 text-primary font-semibold">Amount</span>
+    <span className="w-4 text-primary font-semibold">:</span>
+    <span className="text-primary font-semibold">
+      ₹
       {bookingType === "service"
         ? selectedVariantData?.charges
         : selectedMembership?.price}
-    </p>
+    </span>
+  </div>
+</div>
   </div>
 </div>
 
