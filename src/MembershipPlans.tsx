@@ -14,9 +14,11 @@ type MembershipPlan = {
 
 export default function MembershipPlans({
   plans = [],
+  selectedPlan,
   onSelectPlan,
 }: {
   plans?: MembershipPlan[];
+  selectedPlan?: string;
   onSelectPlan?: (plan: MembershipPlan) => void;
 }) {
   return (
@@ -36,6 +38,7 @@ export default function MembershipPlans({
       {plans.map((plan) => (
         <motion.div
           key={plan.id}
+          onClick={() => onSelectPlan?.(plan)}
           whileHover={{ y: -8, scale: 1.02 }}
           variants={{
             hidden: { opacity: 0, y: 40, scale: 0.96 },
@@ -46,8 +49,10 @@ export default function MembershipPlans({
               transition: { duration: 0.6, ease: "easeOut" },
             },
           }}
-          className={`p-10 rounded-xl flex flex-col h-full relative ${
-            plan.featured
+          className={`p-10 rounded-xl flex flex-col h-full relative cursor-pointer transition-all duration-500 ${
+            selectedPlan === plan.name
+  ? "border-2 border-primary shadow-[0_0_35px_rgba(212,175,55,0.22)] bg-white/[0.06]"
+  : plan.featured
               ? "bg-white/[0.05] border-t-4 border-primary shadow-2xl backdrop-blur-xl"
               : "bg-white/[0.03] border border-white/10 backdrop-blur-xl"
           }`}
@@ -100,7 +105,11 @@ export default function MembershipPlans({
           </ul>
 
           <button
-            onClick={() => onSelectPlan?.(plan)}
+         onClick={(e) => {
+    e.stopPropagation();
+    onSelectPlan?.(plan);
+  }}
+            
             className={`w-full py-4 rounded-full font-body text-xs uppercase tracking-widest transition-all duration-500 ${
               plan.featured
                 ? "bg-primary text-on-primary hover:scale-[1.02] shadow-xl shadow-primary/20"
