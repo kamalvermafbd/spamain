@@ -37,10 +37,18 @@ const [isOptionsLoading, setIsOptionsLoading] = useState(false);
 const [isDropdownsReady, setIsDropdownsReady] = useState(false);
 const selectedMembership = membershipOptions.find(
   (item) => item.name === selectedOption
-);  
+);
+
+const isEmailValid =
+  customerEmail.trim() === "" ||
+  /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(customerEmail);
+  
 const selectedService = serviceOptions.find(
   (item) => item.title === selectedOption
 );
+
+
+  
 const [serviceVariants, setServiceVariants] = useState<any[]>([]);
 
   useEffect(() => {
@@ -756,12 +764,18 @@ placeholder={isCustomerLoading ? "Fetching email..." : "Email Address"}
 onChange={(e) => setCustomerEmail(e.target.value)}
       className="md:col-span-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-primary"
     />
-
+{customerEmail.trim() !== "" && !isEmailValid && (
+  <p className="text-sm text-red-400">
+   Please enter a valid email address to proceed with your booking.
+  </p>
+)}
+        
 <button
   disabled={
     isCustomerLoading ||
     !customerName.trim() ||
-    !customerEmail.trim()
+  !customerEmail.trim() || !isEmailValid
+    
   }
   onClick={() => setShowSummary(true)}
   className="w-full rounded-2xl bg-primary px-5 py-4 text-black font-semibold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
