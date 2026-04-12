@@ -15,10 +15,12 @@ type MembershipPlan = {
 export default function MembershipPlans({
   plans = [],
   selectedPlan,
+  onCardSelect,
   onSelectPlan,
 }: {
   plans?: MembershipPlan[];
   selectedPlan?: string;
+  onCardSelect?: (plan: MembershipPlan) => void;
   onSelectPlan?: (plan: MembershipPlan) => void;
 }) {
   return (
@@ -36,9 +38,9 @@ export default function MembershipPlans({
       className="grid grid-cols-1 md:grid-cols-3 gap-8"
     >
       {plans.map((plan) => (
-        <motion.div
-          key={plan.id}
-          onClick={() => onSelectPlan?.(plan)}
+      <motion.div
+  key={plan.id}
+  onClick={() => onCardSelect?.(plan)}
           whileHover={{ y: -8, scale: 1.02 }}
           variants={{
             hidden: { opacity: 0, y: 40, scale: 0.96 },
