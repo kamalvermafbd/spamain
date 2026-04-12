@@ -645,11 +645,6 @@ const ExclusiveRituals = ({
   selectedPlan={selectedMembership}
   onCardSelect={(plan: any) => {
     setSelectedMembership(plan.name);
-
-    if (!bookingModalOpen) {
-      setIsPreparingMembership(true);
-      setBookingModalOpen(true);
-    }
   }}
   onSelectPlan={(plan: any) => {
     setSelectedMembership(plan.name);
