@@ -288,6 +288,18 @@ setIsCustomerLoading(true);
 }
 };
 
+useEffect(() => {
+  if (
+    bookingType === "membership" &&
+    defaultSelectedOption &&
+    selectedOption === defaultSelectedOption
+    membershipOptions.length > 0
+  ) {
+    onServiceReady?.();
+  }
+}, [bookingType, defaultSelectedOption, selectedOption]);
+  
+  
   useEffect(() => {
   if (
     bookingType === "service" &&
