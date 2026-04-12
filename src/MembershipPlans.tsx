@@ -14,8 +14,10 @@ type MembershipPlan = {
 
 export default function MembershipPlans({
   plans = [],
+  onSelectPlan,
 }: {
   plans?: MembershipPlan[];
+  onSelectPlan?: (plan: MembershipPlan) => void;
 }) {
   return (
     <motion.div
@@ -98,6 +100,7 @@ export default function MembershipPlans({
           </ul>
 
           <button
+            onClick={() => onSelectPlan?.(plan)}
             className={`w-full py-4 rounded-full font-body text-xs uppercase tracking-widest transition-all duration-500 ${
               plan.featured
                 ? "bg-primary text-on-primary hover:scale-[1.02] shadow-xl shadow-primary/20"
