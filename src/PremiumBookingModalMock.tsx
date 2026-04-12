@@ -726,7 +726,7 @@ if (value.length === 10) {
     />
 
 {bookingType === "membership" && phone.length === 0 && (
-  <p className="mt-2 text-sm text-white/60">
+  <p className="mt-2 text-sm text-[#d4af37] text-left pl-1 tracking-wide">
     Please enter your 10-digit mobile number to proceed with your membership booking request.
   </p>
 )}
