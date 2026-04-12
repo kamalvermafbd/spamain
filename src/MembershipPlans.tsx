@@ -53,7 +53,7 @@ export default function MembershipPlans({
           }}
           className={`p-10 rounded-xl flex flex-col h-full relative cursor-pointer transition-all duration-500 ${
             selectedPlan === plan.name
-  ? "border-2 border-primary shadow-[0_0_35px_rgba(212,175,55,0.22)] bg-white/[0.06]"
+  ? "border-2 border-primary bg-white/[0.06] shadow-[0_0_45px_rgba(212,175,55,0.28)] -translate-y-2 scale-[1.02]"
   : plan.featured
               ? "bg-white/[0.05] border-t-4 border-primary shadow-2xl backdrop-blur-xl"
               : "bg-white/[0.03] border border-white/10 backdrop-blur-xl"
