@@ -291,13 +291,12 @@ setIsCustomerLoading(true);
 useEffect(() => {
   if (
     bookingType === "membership" &&
-    defaultSelectedOption &&
-    selectedOption === defaultSelectedOption &&
-    membershipOptions.length > 0
+    selectedMembership
   ) {
+    setIsOptionsLoading(false);
     onServiceReady?.();
   }
-}, [bookingType, defaultSelectedOption, selectedOption]);
+}, [bookingType, selectedMembership]);
   
   
   useEffect(() => {
