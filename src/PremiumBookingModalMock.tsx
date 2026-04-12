@@ -292,7 +292,7 @@ useEffect(() => {
   if (
     bookingType === "membership" &&
     defaultSelectedOption &&
-    selectedOption === defaultSelectedOption
+    selectedOption === defaultSelectedOption &&
     membershipOptions.length > 0
   ) {
     onServiceReady?.();
