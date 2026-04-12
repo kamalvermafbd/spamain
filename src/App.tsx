@@ -624,7 +624,12 @@ const ExclusiveRituals = ({
   plans = [],
 }: {
   plans?: any[];
-}) => (
+}) => {
+  const [selectedMembership, setSelectedMembership] = useState("");
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
+  const [isPreparingMembership, setIsPreparingMembership] = useState(false);
+
+  return (
   <section className="bg-surface-container-lowest py-32 px-6 md:px-12 relative overflow-hidden">
     <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent"></div>
     <div className="max-w-screen-2xl mx-auto relative z-10">
@@ -635,11 +640,45 @@ const ExclusiveRituals = ({
         <p className="text-on-surface-variant font-body max-w-2xl mx-auto">Elevate your wellness journey with curated memberships designed for consistent restoration and cinematic luxury.</p>
       </div>
      
-<MembershipPlans plans={plans} />
+<MembershipPlans
+  plans={plans}
+  onSelectPlan={(plan: any) => {
+    setSelectedMembership(plan.name);
+    setIsPreparingMembership(true);
+    setBookingModalOpen(true);
+  }}
+/>
      
-    </div>
-  </section>
-);
+           {isPreparingMembership && (
+          <div className="fixed inset-0 z-[120] bg-black/70 backdrop-blur-md flex items-center justify-center px-6">
+            <div className="w-full max-w-md rounded-3xl border border-primary/30 bg-[#111]/95 p-8 text-center shadow-[0_0_40px_rgba(212,175,55,0.15)]">
+              <div className="mx-auto mb-5 h-12 w-12 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
+              <p className="text-xs uppercase tracking-[0.3em] text-[#d4af37] mb-3">
+                Preparing Membership
+              </p>
+              <p className="text-sm text-white/75 leading-relaxed">
+                Loading your selected wellness membership...
+              </p>
+            </div>
+          </div>
+        )}
+
+        {bookingModalOpen && (
+          <PremiumBookingModalMock
+            onClose={() => {
+              setBookingModalOpen(false);
+              setIsPreparingMembership(false);
+            }}
+            selectedBranch={localStorage.getItem("selectedBranch") || ""}
+            defaultBookingType="membership"
+            defaultSelectedOption={selectedMembership}
+            onServiceReady={() => setIsPreparingMembership(false)}
+          />
+        )}
+      </div>
+    </section>
+  );
+};
 
 const Standards = () => (
   <section className="py-24 px-6 bg-surface-container-low relative overflow-hidden">
