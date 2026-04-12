@@ -642,6 +642,10 @@ const ExclusiveRituals = ({
      
 <MembershipPlans
   plans={plans}
+  selectedPlan={selectedMembership}
+  onCardSelect={(plan: any) => {
+    setSelectedMembership(plan.name);
+  }}
   onSelectPlan={(plan: any) => {
     setSelectedMembership(plan.name);
     setIsPreparingMembership(true);
